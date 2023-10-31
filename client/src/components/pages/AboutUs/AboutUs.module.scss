@@ -1,0 +1,25 @@
+@import '../../../styles/settings.scss';
+
+.aboutUsPage {
+    h1{
+        font-size: 5*$base-size;
+        margin-bottom: 150px;
+    }
+  h1,
+  h2 {
+    text-align: center;
+    color: $color-cornsilk;
+  }
+  p {
+    font-size: $base-size * 2;
+  }
+  text-shadow: 1px 1px 1px $color-text;
+
+  color: $color-text-bright;
+  background-image: url('/img/backgrounds/about-us.png');
+  
+  background-repeat: no-repeat;
+  background-size: cover;
+  background-position: center;
+  padding: 50px;
+}
