@@ -10,6 +10,8 @@ import { AppService } from './app.service';
 import { ProductModule } from './product/product.module';
 import { UsersModule } from './users/users.module';
 import { AuthModule } from './auth/auth.module';
+import { CartsModule } from './carts/carts.module';
+
 import { ConfigModule } from '@nestjs/config';
 import configuration from './config/configuration';
 
@@ -18,6 +20,7 @@ import configuration from './config/configuration';
     ProductModule,
     UsersModule,
     AuthModule,
+    CartsModule,
     ConfigModule.forRoot({
       load: [configuration],
       isGlobal: true,

@@ -1,5 +1,5 @@
 const initialState = {
-    ads: [],
+    products: [],
     user: null,
 }
 

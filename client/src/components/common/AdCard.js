@@ -11,8 +11,8 @@ const AdCard = ({ ad }) => {
       <Card.Img  className="image" variant="top" src={`${IMAGES_URL}/${ad.image}`} alt={ad.title} />
       <Card.Body>
         <Card.Title>{ad.title}</Card.Title>
-        <Card.Text>Location: {ad.location}</Card.Text>
-        <Link to={`/ad/${ad._id}`}>
+        <Card.Text>Price: {ad.price} $</Card.Text>
+        <Link to={`/product/${ad.id}`}>
           <Button variant="primary">Read more</Button>
         </Link>
       </Card.Body>

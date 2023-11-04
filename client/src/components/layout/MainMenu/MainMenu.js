@@ -12,6 +12,9 @@ import { FaBars } from 'react-icons/fa';
 import styles from'./MainMenu.module.scss';
 import { useState } from 'react';
 import { useSelector } from 'react-redux';
+  import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+  import { faShoppingBasket } from '@fortawesome/free-solid-svg-icons';
+  import logo from '../../../img/brand/brand.png';
 
 const MainMenu = () => {
   const [isOpen, setIsOpen] = useState(false);
@@ -25,13 +28,9 @@ const MainMenu = () => {
     <div>
       <Navbar expand="md" className="animated fadeIn">
         <NavbarBrand>
-          <img
-            src="https://www.zarla.com/images/zarla-our-kitchen-1x1-2400x2400-20210607-7ptg4hq93wcmh4p7dwpx.png?crop=1:1,smart&width=250&dpr=2"
-            alt="Logo"
-            className={styles.logo}
-          />
+          <img src={logo} alt="Logo" className={styles.logo} />
         </NavbarBrand>
-        <NavbarToggler className="position-absolute" onClick={toggle}>
+        <NavbarToggler className="ms-auto" onClick={toggle}>
           <FaBars />
         </NavbarToggler>
         <Collapse isOpen={isOpen} navbar>
@@ -52,6 +51,13 @@ const MainMenu = () => {
                 </NavItem>
                 <NavItem className="d-block d-xl-block">
                   <NavLink href="/sign-in">Sign In</NavLink>
+                </NavItem>
+                <NavItem>
+                  <NavLink href="/cart">
+                    <Button className="btn-outline" outline color="warning">
+                      <FontAwesomeIcon icon={faShoppingBasket} />
+                    </Button>
+                  </NavLink>
                 </NavItem>
               </>
             ) : (

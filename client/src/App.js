@@ -20,44 +20,44 @@ import Search from './components/pages/Search/Search';
 
 import { API_URL } from './config';
 import { logIn } from './redux/usersRedux';
-import { useSelector } from 'react-redux';
-import { useState } from 'react';
 
-import { fetchAds } from './redux/adsRedux';
+import { fetchProducts } from './redux/productsRedux';
+
 import ContactPage from './components/pages/ContactUs/ContactUsPage';
 import AboutUsPage from './components/pages/AboutUs/AboutUsPage';
+import CartPage from './components/pages/Cart/CartPage';
 
 const App = () => {
   const dispatch = useDispatch();
 
   useEffect(() => {
-    dispatch(fetchAds());
+    dispatch(fetchProducts());
   }, [dispatch]);
 
-  useEffect(() => {
-    const userData = localStorage.getItem('user');
-    console.log(userData);
-    if (userData) {
-      const userObj = JSON.parse(userData);
-      dispatch(logIn(userObj));
-    } else {
-      fetch(`${API_URL}auth/user`, {
-        method: 'GET',
-        credentials: 'include',
-      })
-        .then((response) => response.json())
-        .then((response) => {
-          console.log(response);
-          if (response) {
-            dispatch(logIn(response));
-            localStorage.setItem('user', JSON.stringify(response));
-          }
-        })
-        .catch((error) => {
-          console.error('Błąd podczas pobierania danych użytkownika:', error);
-        });
-    }
-  }, [dispatch]);
+  // useEffect(() => {
+  //   const userData = localStorage.getItem('user');
+  //   console.log(userData);
+  //   if (userData) {
+  //     const userObj = JSON.parse(userData);
+  //     dispatch(logIn(userObj));
+  //   } else {
+  //     fetch(`${API_URL}auth/user`, {
+  //       method: 'GET',
+  //       credentials: 'include',
+  //     })
+  //       .then((response) => response.json())
+  //       .then((response) => {
+  //         console.log(response);
+  //         if (response) {
+  //           dispatch(logIn(response));
+  //           localStorage.setItem('user', JSON.stringify(response));
+  //         }
+  //       })
+  //       .catch((error) => {
+  //         console.error('Błąd podczas pobierania danych użytkownika:', error);
+  //       });
+  //   }
+  // }, [dispatch]);
 
   return (
     <MainLayout>
@@ -65,8 +65,9 @@ const App = () => {
         <Route path="/" element={<Home />} />
         <Route path="/contact-us" element={<ContactPage />} />
         <Route path="/about-us" element={<AboutUsPage />} />
+        <Route path="/cart" element={<CartPage />} />
 
-        <Route path="/ad/:id" element={<Ad />} />
+        <Route path="/product/:id" element={<Ad />} />
         <Route path="/ad/add" element={<AdAdd />} />
         <Route path="/ad/edit/:id" element={<AdEdit />} />
         <Route path="/ad/delete/:id" element={<AdDelete />} />
