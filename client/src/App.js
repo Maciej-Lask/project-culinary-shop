@@ -3,7 +3,6 @@ import MainLayout from './components/layout/MainLayout/MainLayout';
 import { useDispatch } from 'react-redux';
 import { useEffect } from 'react';
 
-// import routes
 import Home from './components/pages/Home/HomePage';
 import NotFound from './components/pages/NotFound/NotFoundPage';
 
@@ -18,14 +17,18 @@ import AdDelete from './components/pages/AdDelete/AdDelete';
 
 import Search from './components/pages/Search/Search';
 
-import { API_URL } from './config';
-import { logIn } from './redux/usersRedux';
-
 import { fetchProducts } from './redux/productsRedux';
+import { logIn } from './redux/usersRedux';
 
 import ContactPage from './components/pages/ContactUs/ContactUsPage';
 import AboutUsPage from './components/pages/AboutUs/AboutUsPage';
 import CartPage from './components/pages/Cart/CartPage';
+
+import Order from './components/pages/Order/Order';
+import MyOrders from './components/pages/MyOrders/MyOrders';
+import ConfirmOrder from './components/pages/ConfirmOrder/ConfirmOrder';
+
+import { AUTH_URL } from './config';
 
 const App = () => {
   const dispatch = useDispatch();
@@ -34,30 +37,29 @@ const App = () => {
     dispatch(fetchProducts());
   }, [dispatch]);
 
-  // useEffect(() => {
-  //   const userData = localStorage.getItem('user');
-  //   console.log(userData);
-  //   if (userData) {
-  //     const userObj = JSON.parse(userData);
-  //     dispatch(logIn(userObj));
-  //   } else {
-  //     fetch(`${API_URL}auth/user`, {
-  //       method: 'GET',
-  //       credentials: 'include',
-  //     })
-  //       .then((response) => response.json())
-  //       .then((response) => {
-  //         console.log(response);
-  //         if (response) {
-  //           dispatch(logIn(response));
-  //           localStorage.setItem('user', JSON.stringify(response));
-  //         }
-  //       })
-  //       .catch((error) => {
-  //         console.error('Błąd podczas pobierania danych użytkownika:', error);
-  //       });
-  //   }
-  // }, [dispatch]);
+  useEffect(() => {
+    const userData = localStorage.getItem('user');
+    console.log(userData);
+    if (userData) {
+      const userObj = JSON.parse(userData);
+      dispatch(logIn(userObj));
+    } else {
+      fetch(`${AUTH_URL}/user`, {
+        method: 'GET',
+      })
+        .then((response) => response.json())
+        .then((response) => {
+          console.log(response);
+          if (response) {
+            dispatch(logIn(response));
+            localStorage.setItem('user', JSON.stringify(response));
+          }
+        })
+        .catch((error) => {
+          console.error('Error while fetching user data:', error);
+        });
+    }
+  }, [dispatch]);
 
   return (
     <MainLayout>
@@ -66,6 +68,9 @@ const App = () => {
         <Route path="/contact-us" element={<ContactPage />} />
         <Route path="/about-us" element={<AboutUsPage />} />
         <Route path="/cart" element={<CartPage />} />
+        <Route path="/order" element={<Order />} />
+        <Route path="/my-orders" element={<MyOrders />} />
+        <Route path="/confirm-order" element={<ConfirmOrder />} />
 
         <Route path="/product/:id" element={<Ad />} />
         <Route path="/ad/add" element={<AdAdd />} />

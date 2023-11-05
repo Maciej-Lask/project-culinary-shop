@@ -35,7 +35,7 @@ export const updateProducts = (updatedProductData) => ({
 export const fetchProducts = () => {
   return async (dispatch) => {
     try {
-      const response = await fetch(`${API_URL}api/products`);
+      const response = await fetch(`${API_URL}/products`);
       const data = await response.json();
       dispatch(updateProducts(data));
     } catch (error) {

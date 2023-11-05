@@ -1,6 +1,6 @@
 import { Container } from 'reactstrap';
 import { Button } from 'react-bootstrap';
-import { API_URL } from '../../../config';
+import { AUTH_URL } from '../../../config';
 import { useNavigate } from 'react-router-dom';
 import { logOut } from '../../../redux/usersRedux';
 import { useDispatch } from 'react-redux';
@@ -10,26 +10,21 @@ const SignOut = () => {
   const dispatch = useDispatch();
   useEffect(() => {
     const options = {
-      method: 'POST',
+      method: 'DELETE',
       headers: {
         'Content-Type': 'application/json',
+        // credentials: 'include',
       },
     };
 
-    fetch(`${API_URL}auth/logout`, options).then(() => {
+    fetch(`${AUTH_URL}/logout`, options).then(() => {
       dispatch(logOut());
       localStorage.removeItem('user');
       setTimeout(() => {
         navigate('/');
       }, 3000);
     });
-  }, [dispatch]);
-  // return (
-  //   <Container className="d-flex flex-column align-items-center">
-  //     <h1>Sign Out Here</h1>
-  //     <Button variant="primary">Sign Out</Button>
-  //   </Container>
-  // );
+  }, [dispatch, navigate]);
   return (
     <Container className="d-flex flex-column align-items-center">
       <h1>You have been signed out</h1>

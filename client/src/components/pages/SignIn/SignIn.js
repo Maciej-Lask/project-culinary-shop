@@ -2,36 +2,42 @@ import { Container } from 'reactstrap';
 import { useNavigate } from 'react-router-dom';
 import { useState } from 'react';
 import { Form, Button, Alert, Spinner, AlertHeading } from 'react-bootstrap';
-import { API_URL } from '../../../config';
+import { AUTH_URL } from '../../../config';
 import { useDispatch } from 'react-redux';
 import { logIn } from '../../../redux/usersRedux';
 
 const SignIn = () => {
   const navigate = useNavigate();
   const dispatch = useDispatch();
-  const [login, setLogin] = useState('');
+  const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
 
   const [status, setStatus] = useState(null); // null, success, serverError, clientError, loginError, loading
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    console.log('submitted');
+      const userData = {
+        email,
+        password,
+      };
     const options = {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
       },
-      body: JSON.stringify({ login, password }),
+      body: JSON.stringify(userData),
+      
     };
     setStatus('loading');
-    fetch(`${API_URL}auth/login`, options)
+    fetch(`${AUTH_URL}/login`, options)
       .then((res) => {
-        if (res.status === 200) {
-          localStorage.setItem('user', JSON.stringify(login));
+        console.log('Response:', res);
+        if (res.status === 201) {
+          localStorage.setItem('user', JSON.stringify(email));
+
           
           setStatus('success');
-          dispatch(logIn({ login }));
+          dispatch(logIn({ email }));
           setTimeout(() => {
             navigate('/');
           }, 3000);
@@ -79,12 +85,12 @@ const SignIn = () => {
       )}
       <Form className="standard-box" onSubmit={handleSubmit}>
         <Form.Group className="mb-3" controlId="login">
-          <Form.Label>Login</Form.Label>
+          <Form.Label>Email</Form.Label>
           <Form.Control
-            type="login"
-            placeholder="Enter login"
-            value={login}
-            onChange={(e) => setLogin(e.target.value)}
+            type="email"
+            placeholder="Enter email"
+            value={email}
+            onChange={(e) => setEmail(e.target.value)}
           />
         </Form.Group>
         <Form.Group

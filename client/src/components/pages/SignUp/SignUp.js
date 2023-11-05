@@ -3,34 +3,35 @@ import { Form, Button, Alert, Spinner } from 'react-bootstrap';
 import { useNavigate } from "react-router-dom";
 import { useState } from 'react';
 
-import { API_URL } from '../../../config';
+import { AUTH_URL } from '../../../config';
 
 const SignUp = () => {
   const navigate = useNavigate();
-  const [login, setLogin] = useState('');
+  const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
-  const [phone, setPhone] = useState('');
-  const [avatar, setAvatar] = useState(null);
+  const [passwordRepeat, setPasswordRepeat] = useState('');
 
   const [status, setStatus] = useState(null); // null, success, serverError, clientError, loginError, loading
 
-  const handleSubmit = (e) => {
-    e.preventDefault();
+const handleSubmit = (e) => {
+  e.preventDefault();
 
-    console.log('submitted');
-    // console.log(login, password, phone, avatar);
-    const fd = new FormData();
-    fd.append('login', login);
-    fd.append('password', password);
-    fd.append('phoneNumber', phone);
-    fd.append('avatar', avatar);
-    console.log(fd);
-    const options = {
-      method: 'POST',
-      body: fd,
-    };
-    setStatus('loading');
-    fetch(`${API_URL}auth/register`, options).then((res) => {
+  const userData = {
+    email,
+    password,
+    passwordRepeat,
+  };
+
+  setStatus('loading');
+
+  fetch(`${AUTH_URL}/register`, {
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/json',
+    },
+    body: JSON.stringify(userData),
+  })
+    .then((res) => {
       if (res.status === 201) {
         setStatus('success');
         setTimeout(() => {
@@ -44,9 +45,11 @@ const SignUp = () => {
         setStatus('serverError');
       }
       return res.json();
+    })
+    .catch((error) => {
+      console.error('Error:', error);
     });
-    
-  };
+};
 
   return (
     <Container className="d-flex flex-column align-items-center">
@@ -89,24 +92,24 @@ const SignUp = () => {
       {status === 'loginError' && (
         <Alert variant="warning" className="rounded">
           <Alert.Heading style={{ color: 'white' }}>
-            Login already in use!
+            Email already in use!
           </Alert.Heading>
-          <p>Try using another login</p>
+          <p>Try using another email</p>
         </Alert>
       )}
 
       <Form className="standard-box" onSubmit={handleSubmit}>
-        <Form.Group className="mb-3" controlId="login">
-          <Form.Label>Login</Form.Label>
+        <Form.Group className="mb-3" controlId="email">
+          <Form.Label>Email</Form.Label>
           <Form.Control
-            type="login"
-            value={login}
-            onChange={(e) => setLogin(e.target.value)}
-            placeholder="Enter login"
+            type="email"
+            value={email}
+            onChange={(e) => setEmail(e.target.value)}
+            placeholder="Enter email"
           />
         </Form.Group>
         <Form.Group className="mb-3" controlId="password">
-          <Form.Label>password</Form.Label>
+          <Form.Label>Password</Form.Label>
           <Form.Control
             type="password"
             value={password}
@@ -114,22 +117,16 @@ const SignUp = () => {
             placeholder="Enter password"
           />
         </Form.Group>
-        <Form.Group className="mb-3" controlId="phone">
-          <Form.Label>Phone Number</Form.Label>
+        <Form.Group className="mb-3" controlId="passwordRepeat">
+          <Form.Label>Confirm password</Form.Label>
           <Form.Control
-            type="phone"
-            value={phone}
-            onChange={(e) => setPhone(e.target.value)}
-            placeholder="Enter phone number"
+            type="password"
+            value={passwordRepeat}
+            onChange={(e) => setPasswordRepeat(e.target.value)}
+            placeholder="Confirm password"
           />
         </Form.Group>
-        <Form.Group className="mb-3" controlId="avatar">
-          <Form.Label>Avatar</Form.Label>
-          <Form.Control
-            type="file"
-            onChange={(e) => setAvatar(e.target.files[0])}
-          />
-        </Form.Group>
+        
         <Button variant="primary" type="submit">
           Submit
         </Button>

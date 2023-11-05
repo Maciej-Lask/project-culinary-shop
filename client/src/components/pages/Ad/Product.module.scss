@@ -1,0 +1,64 @@
+@import '../../../styles/settings.scss';
+
+.productPage{
+  background-image: url('/img/backgrounds/contact-us.png');
+    background-repeat: no-repeat;
+    background-size: cover;
+    background-position: center;
+}
+
+.productPageContainer {
+    h1{
+        font-size: 5*$base-size;
+        margin-bottom: 150px;
+    }
+    h1,
+    h2 {
+        text-align: center;
+        color: $color-cornsilk;
+        text-shadow: 1px 1px 1px $color-text;
+    }
+    p {
+        font-size: $base-size * 1.4;
+    }
+    
+    .image{
+        height: 60%;
+        width: 60%;
+        max-width: 500px;
+        max-height: 500px;
+        margin: auto;
+        margin-top: 5%;
+    }
+    
+    padding: 50px;
+    .button{
+        margin-top: 10px;
+        margin-right: 15px;
+        border: none;
+        background-color: $color-button;
+        
+        &:hover{
+            background-color: $color-button-hover;
+        }
+    }
+    .count{
+
+        color: $color-theme-3;
+        border-radius: 5px;
+        margin-bottom: 0;
+        text-align: center;
+        background-color: $color-theme-1;
+
+    }
+
+    @media (max-width: 768px) {
+        .countPlus{
+            order: 3;
+        }
+        .countMinus{
+            order: 1;
+        }
+      
+    }
+}

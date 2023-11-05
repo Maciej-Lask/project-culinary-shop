@@ -25,7 +25,7 @@ const MainMenu = () => {
   };
 
   return (
-    <div>
+    <div className={styles.mainMenu}>
       <Navbar expand="md" className="animated fadeIn">
         <NavbarBrand>
           <img src={logo} alt="Logo" className={styles.logo} />
@@ -44,6 +44,7 @@ const MainMenu = () => {
             <NavItem>
               <NavLink href="/about-us">About Us</NavLink>
             </NavItem>
+
             {!user ? (
               <>
                 <NavItem className="d-block d-xl-block">
@@ -52,28 +53,21 @@ const MainMenu = () => {
                 <NavItem className="d-block d-xl-block">
                   <NavLink href="/sign-in">Sign In</NavLink>
                 </NavItem>
-                <NavItem>
-                  <NavLink href="/cart">
-                    <Button className="btn-outline" outline color="warning">
-                      <FontAwesomeIcon icon={faShoppingBasket} />
-                    </Button>
-                  </NavLink>
-                </NavItem>
               </>
             ) : (
               <>
                 <NavItem className="d-block d-xl-block">
                   <NavLink href="/sign-out">Sign Out</NavLink>
                 </NavItem>
-                <NavItem>
-                  <NavLink href="/ad/add">
-                    <Button className="btn-outline" outline color="success">
-                      Post ad
-                    </Button>
-                  </NavLink>
-                </NavItem>
               </>
             )}
+            <NavItem>
+              <NavLink href="/cart">
+                <Button className="btn-outline" outline color="warning">
+                  <FontAwesomeIcon icon={faShoppingBasket} />
+                </Button>
+              </NavLink>
+            </NavItem>
           </Nav>
         </Collapse>
       </Navbar>

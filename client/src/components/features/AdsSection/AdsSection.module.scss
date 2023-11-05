@@ -1,7 +1,13 @@
+@import '../../../styles/settings.scss';
+
 .adsSection {
   .image {
     height: 300px;
     object-fit: cover;
+  }
+  .sectionTitle{
+    color: $color-theme-7;
+    text-shadow: 1px 1px 1px $color-text;
   }
   
 }
