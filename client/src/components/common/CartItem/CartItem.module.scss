@@ -1,0 +1,64 @@
+@import '../../../styles/settings.scss';
+
+.cartItem {
+  padding: 15px;
+  margin-bottom: 15px;
+  border-bottom: 1px solid $color-text-light;
+
+  p {
+    font-size: $base-size * 1.4;
+    margin: 0 0 15px 0;
+  }
+
+  .image {
+    height: 300px;
+    aspect-ratio: 1;
+    border-radius: 15px;
+    margin-bottom: 15px;
+    object-fit: cover;
+  }
+
+  .buttonsRow {
+    margin: 10px 0;
+  }
+
+  .button {
+    margin-right: 15px;
+    border: none;
+    color: $color-theme-3;
+    background-color: $color-button;
+
+    &:hover {
+      background-color: $color-button-hover;
+    }
+  }
+  .count {
+    color: $color-theme-3;
+    border-radius: 5px;
+    margin-bottom: 0;
+    text-align: center;
+    background-color: $color-theme-1;
+  }
+  @media (max-width: 768px) {
+    .countPlus {
+      order: 3;
+    }
+    .countMinus {
+      order: 1;
+    }
+    .button,
+    .removeProductButton {
+      margin: 5px;
+    }
+    .removeProductButton {
+      order: 4;
+    }
+    .buttonsRow {
+      justify-content: center;
+    }
+    .image{
+      width: 100%;
+      height: 100%;
+    }
+  }
+}

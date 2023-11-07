@@ -10,7 +10,6 @@ import { AppService } from './app.service';
 import { ProductModule } from './product/product.module';
 import { UsersModule } from './users/users.module';
 import { AuthModule } from './auth/auth.module';
-import { CartsModule } from './carts/carts.module';
 
 import { ConfigModule } from '@nestjs/config';
 import configuration from './config/configuration';
@@ -26,7 +25,6 @@ import { join } from 'path';
     ProductModule,
     UsersModule,
     AuthModule,
-    CartsModule,
     ConfigModule.forRoot({
       load: [configuration],
       isGlobal: true,

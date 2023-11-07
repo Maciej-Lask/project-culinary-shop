@@ -10,10 +10,7 @@ import SignUp from './components/pages/SignUp/SignUp';
 import SignIn from './components/pages/SignIn/SignIn';
 import SignOut from './components/pages/SignOut/SignOut';
 
-import Ad from './components/pages/Ad/Ad';
-import AdAdd from './components/pages/AdAdd/AdAdd';
-import AdEdit from './components/pages/AdEdit/AdEdit';
-import AdDelete from './components/pages/AdDelete/AdDelete';
+import Product from './components/pages/Product/Product';
 
 import Search from './components/pages/Search/Search';
 
@@ -26,7 +23,7 @@ import CartPage from './components/pages/Cart/CartPage';
 
 import Order from './components/pages/Order/Order';
 import MyOrders from './components/pages/MyOrders/MyOrders';
-import ConfirmOrder from './components/pages/ConfirmOrder/ConfirmOrder';
+import OrderSummary from './components/pages/OrderSummary/OrderSummary';
 
 import { AUTH_URL } from './config';
 
@@ -67,15 +64,15 @@ const App = () => {
         <Route path="/" element={<Home />} />
         <Route path="/contact-us" element={<ContactPage />} />
         <Route path="/about-us" element={<AboutUsPage />} />
+        
         <Route path="/cart" element={<CartPage />} />
+
+
         <Route path="/order" element={<Order />} />
         <Route path="/my-orders" element={<MyOrders />} />
-        <Route path="/confirm-order" element={<ConfirmOrder />} />
+        <Route path="/order-summary" element={<OrderSummary />} />
 
-        <Route path="/product/:id" element={<Ad />} />
-        <Route path="/ad/add" element={<AdAdd />} />
-        <Route path="/ad/edit/:id" element={<AdEdit />} />
-        <Route path="/ad/delete/:id" element={<AdDelete />} />
+        <Route path="/product/:id" element={<Product />} />
 
         <Route path="/search/:searchPhrase" element={<Search />} />
 

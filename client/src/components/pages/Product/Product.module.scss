@@ -59,6 +59,14 @@
         .countMinus{
             order: 1;
         }
+        .button{
+            margin: 5px;
+        }
       
+    }
+        @media (max-width: 992px) {
+        .buttonsRow{
+            justify-content: center;
+        }
     }
 }

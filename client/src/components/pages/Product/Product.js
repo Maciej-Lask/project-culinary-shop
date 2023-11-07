@@ -1,11 +1,10 @@
 import React from 'react';
-import { Container, Card, Button, Spinner } from 'react-bootstrap';
+import { Container, Card, Button, Spinner, Modal } from 'react-bootstrap';
 import { useSelector } from 'react-redux';
-import { json, useParams } from 'react-router-dom';
-import { IMAGES_URL, API_URL } from '../../../config';
+import { Link, useParams } from 'react-router-dom';
+import { IMAGES_URL } from '../../../config';
 import { getProductById } from '../../../redux/productsRedux';
 import styles from './Product.module.scss';
-// import + and - icons
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faPlus, faMinus } from '@fortawesome/free-solid-svg-icons';
 import { useState } from 'react';
@@ -13,27 +12,59 @@ import { useState } from 'react';
 const Product = () => {
   const { id } = useParams();
   const product = useSelector((state) => getProductById(state, id));
-  
-  const [productCount, setProductCount] = useState(1);
 
+  const [productCount, setProductCount] = useState(1);
+  const [isModalOpen, setIsModalOpen] = useState(false);
 
   const handleAddToCart = () => {
-    console.log('added to cart');
+    const cart = JSON.parse(localStorage.getItem('cart')) || { products: [] };
+    const existingProductIndex = cart.products.findIndex(
+      (item) => item.id === product.id,
+    );
+
+    if (existingProductIndex !== -1) {
+      cart.products[existingProductIndex].count += productCount;
+    } else {
+      cart.products.push({
+        id: product.id,
+        count: productCount,
+        price: product.price,
+      });
+    }
+
+    localStorage.setItem('cart', JSON.stringify(cart));
+     setIsModalOpen(true);
   };
 
-    const incrementProductCount = () => {
-      setProductCount(productCount + 1);
-    };
+  const incrementProductCount = () => {
+    setProductCount(productCount + 1);
+  };
 
-    const decrementProductCount = () => {
-      if (productCount > 1) {
-        setProductCount(productCount - 1);
-      }
+  const decrementProductCount = () => {
+    if (productCount > 1) {
+      setProductCount(productCount - 1);
+    }
+  };
+    const closeModal = () => {
+      setIsModalOpen(false);
     };
 
   return (
     <div className={styles.productPage}>
       <Container className={styles.productPageContainer}>
+        <Modal show={isModalOpen} onHide={closeModal} >
+          <Modal.Header closeButton>
+            <Modal.Title>Added to cart</Modal.Title>
+          </Modal.Header>
+          <Modal.Footer>
+            <Link to="/cart"  onClick={closeModal}>
+              <Button variant="outline-warning">Go to Cart</Button>
+            </Link>
+            <Button variant="secondary" onClick={closeModal}>
+              Continue shopping
+            </Button>
+          </Modal.Footer>
+        </Modal>
         {product ? (
           <>
             <h2 className="pt-5">{product.title}</h2>
@@ -47,9 +78,8 @@ const Product = () => {
                 <Card.Title>{product.title}</Card.Title>
                 <Card.Text>{product.description}</Card.Text>
                 <Card.Text>Price: ${product.price * productCount}</Card.Text>
-                <div className="row justify-content-center">
+                <div className={`row  ${styles.buttonsRow}`}>
                   <Button
-                    variant="primary"
                     className={`${styles.button} col-md-10 col-lg-3 `}
                     onClick={handleAddToCart}
                   >

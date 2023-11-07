@@ -1,0 +1,11 @@
+@import '../../../styles/settings.scss';
+
+.searchForm {
+  .submitSearch {
+    width: 75%;
+    margin: 0 auto;
+    color: $color-text-bright;
+    // font-weight: bold;
+    text-shadow: 1px 1px 1px $color-text;
+  }
+}
