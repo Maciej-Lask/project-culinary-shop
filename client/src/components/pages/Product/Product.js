@@ -33,7 +33,7 @@ const Product = () => {
     }
 
     localStorage.setItem('cart', JSON.stringify(cart));
-     setIsModalOpen(true);
+    setIsModalOpen(true);
   };
 
   const incrementProductCount = () => {
@@ -45,24 +45,26 @@ const Product = () => {
       setProductCount(productCount - 1);
     }
   };
-    const closeModal = () => {
-      setIsModalOpen(false);
-    };
+  const closeModal = () => {
+    setIsModalOpen(false);
+  };
 
   return (
     <div className={styles.productPage}>
       <Container className={styles.productPageContainer}>
-        <Modal show={isModalOpen} onHide={closeModal} >
+        <Modal show={isModalOpen} onHide={closeModal}>
           <Modal.Header closeButton>
             <Modal.Title>Added to cart</Modal.Title>
           </Modal.Header>
           <Modal.Footer>
-            <Link to="/cart"  onClick={closeModal}>
+            <Link to="/cart" onClick={closeModal}>
               <Button variant="outline-warning">Go to Cart</Button>
             </Link>
-            <Button variant="secondary" onClick={closeModal}>
-              Continue shopping
-            </Button>
+            <Link to="/" onClick={closeModal}>
+              <Button variant="secondary" onClick={closeModal}>
+                Continue shopping
+              </Button>
+            </Link>
           </Modal.Footer>
         </Modal>
         {product ? (

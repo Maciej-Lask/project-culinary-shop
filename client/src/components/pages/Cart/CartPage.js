@@ -59,7 +59,7 @@ const CartPage = () => {
       {cart.products.map((product) => (
         <CartItem key={product.id} product={product} updateCart={updateCart} removeProduct={removeProduct} />
       ))}
-      <p>Total Price: ${totalPrice}</p>
+      <h5 className="my-5">Total Price: ${totalPrice}</h5>
       <Link to="/order-summary">
         <Button variant="outline-dark">Order Summary</Button>
       </Link>
