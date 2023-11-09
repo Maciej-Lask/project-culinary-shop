@@ -10,7 +10,7 @@ const Search = () => {
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
-    fetch(`${API_URL}api/ads/search/${searchPhrase}`)
+    fetch(`${API_URL}/ads/search/${searchPhrase}`)
       .then((response) => response.json())
       .then((data) => {
         setSearchResults(data);

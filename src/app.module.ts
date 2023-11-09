@@ -10,6 +10,7 @@ import { AppService } from './app.service';
 import { ProductModule } from './product/product.module';
 import { UsersModule } from './users/users.module';
 import { AuthModule } from './auth/auth.module';
+import { OrderModule } from './order/order.module';
 
 import { ConfigModule } from '@nestjs/config';
 import configuration from './config/configuration';
@@ -23,6 +24,7 @@ import { join } from 'path';
       rootPath: join(__dirname, '../../', 'client', 'build'),
     }),
     ProductModule,
+    OrderModule,
     UsersModule,
     AuthModule,
     ConfigModule.forRoot({

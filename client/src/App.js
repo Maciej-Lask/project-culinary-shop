@@ -29,7 +29,7 @@ import { AUTH_URL } from './config';
 
 const App = () => {
   const dispatch = useDispatch();
-
+  // localStorage.setItem('user', JSON.stringify('unauthorized'));
   useEffect(() => {
     dispatch(fetchProducts());
   }, [dispatch]);
@@ -41,6 +41,7 @@ const App = () => {
       const userObj = JSON.parse(userData);
       dispatch(logIn(userObj));
     } else {
+      localStorage.setItem('user', JSON.stringify('unauthorized'));
       fetch(`${AUTH_URL}/user`, {
         method: 'GET',
       })

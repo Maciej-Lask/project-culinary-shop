@@ -19,6 +19,7 @@ export const fetchUser = () => {
         credentials: 'include',
       });
       const user = await response.json();
+      console.log(user);
       dispatch(logIn(user));
     } catch (error) {
       console.log(error);

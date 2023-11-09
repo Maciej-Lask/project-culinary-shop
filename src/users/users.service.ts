@@ -8,13 +8,6 @@ export class UsersService {
 
   public async getAll(): Promise<User[]> {
     return this.prismaService.user.findMany({
-      // include: {
-      //   orders: {
-      //     include: {
-      //       book: true,
-      //     },
-      //   },
-      // },
     });
   }
 

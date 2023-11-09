@@ -19,7 +19,8 @@ const SignOut = () => {
 
     fetch(`${AUTH_URL}/logout`, options).then(() => {
       dispatch(logOut());
-      localStorage.removeItem('user');
+      localStorage.setItem('user', JSON.stringify('unauthorized'));
+      localStorage.removeItem('cart');
       setTimeout(() => {
         navigate('/');
       }, 3000);

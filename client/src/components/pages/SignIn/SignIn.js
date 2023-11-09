@@ -16,17 +16,16 @@ const SignIn = () => {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-      const userData = {
-        email,
-        password,
-      };
+    const userData = {
+      email,
+      password,
+    };
     const options = {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
       },
       body: JSON.stringify(userData),
-      
     };
     setStatus('loading');
     fetch(`${AUTH_URL}/login`, options)
@@ -35,7 +34,6 @@ const SignIn = () => {
         if (res.status === 201) {
           localStorage.setItem('user', JSON.stringify(email));
 
-          
           setStatus('success');
           dispatch(logIn({ email }));
           setTimeout(() => {
@@ -66,7 +64,11 @@ const SignIn = () => {
       {status === 'success' && (
         <Alert variant="success" className="rounded">
           <AlertHeading style={{ color: 'white' }}>Success!</AlertHeading>
-          <p> Successfully logged in! You will be redirected to home page in 3 seconds</p>
+          <p>
+            {' '}
+            Successfully logged in! You will be redirected to home page in 3
+            seconds
+          </p>
         </Alert>
       )}
 

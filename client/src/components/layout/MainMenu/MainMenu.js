@@ -45,7 +45,7 @@ const MainMenu = () => {
               <NavLink href="/about-us">About Us</NavLink>
             </NavItem>
 
-            {!user ? (
+            {!user || user === 'unauthorized' ? (
               <>
                 <NavItem className="d-block d-xl-block">
                   <NavLink href="/sign-up">Sign Up</NavLink>
