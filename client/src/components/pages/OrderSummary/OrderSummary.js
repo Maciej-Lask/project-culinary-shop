@@ -1,9 +1,8 @@
 import React from 'react';
-import { Container, Form, Button, Row, Col, ListGroup } from 'react-bootstrap';
+import { Container, Form, Button, Row, Col, ListGroup, Alert } from 'react-bootstrap';
 import OrderItem from '../../common/OrderItem/OrderItem';
 import { useState, useEffect } from 'react';
 import { API_URL, AUTH_URL } from '../../../config';
-import { useSelector } from 'react-redux';
 
 const OrderSummary = () => {
   const [cart, setCart] = useState({ products: [] });
@@ -38,14 +37,12 @@ const OrderSummary = () => {
     return total + product.price * product.count;
   }, 0);
 
-  // const orderProducts = cart.products.map((product) => {
-  //   const { id, ...productWithoutId } = product;
-  //   return productWithoutId;
-  // });
-
   const handleOrderSubmit = (e) => {
     e.preventDefault();
-    console.log('Cart products:', cart.products);
+        if (!name || !email || !address || !paymentMethod || cart.products.length === 0) {
+          setStatus('clientError');
+          return;
+        }
     const orderData = {
       name: name,
       userId: userId,
@@ -89,8 +86,34 @@ const OrderSummary = () => {
   return (
     <Container>
       <h1>Order Summary</h1>
+
+      {status === 'clientError' && (
+        <Alert variant="danger">
+          Please fill in all required fields and make sure your cart is not empty.
+        </Alert>
+      )}
+      {/* Display server error message */}
       {status === 'serverError' && (
-        <p>Something went wrong. Please try again later.</p> 
+        <Alert variant="danger">
+          Something went wrong. Please try again later.
+        </Alert>
+      )}
+      {/* Display success message */}
+      {status === 'success' && (
+        <Alert variant="success">
+          Your order has been successfully submitted.{' '}
+          <Button variant="primary" href="/">
+            Continue Shopping
+          </Button>
+        </Alert>
+      )}
+      {cart.products.length === 0 && (
+        <Alert variant="info">
+          Your cart is empty.{' '}
+          <Button variant="primary" href="/">
+            Continue Shopping
+          </Button>
+        </Alert>
       )}
       <Row>
         <Col lg={8}>

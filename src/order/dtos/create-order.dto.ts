@@ -5,6 +5,7 @@ import {
   IsNotEmpty,
   IsNumber,
   IsUUID,
+  Min,
 } from 'class-validator';
 
 class CartProductDTO {
@@ -52,6 +53,7 @@ class OrderDTO {
 
   @IsNotEmpty()
   @IsNumber()
+  @Min(1)
   totalPrice: number;
 
   @IsNotEmpty()

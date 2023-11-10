@@ -32,11 +32,12 @@ export class OrderController {
 
   @Post('/')
   async createOrder(@Body() orderData: OrderDTO) {
+    console.log(orderData);
     try {
        const cartProducts: Omit<CartProduct, 'id'>[]  =   orderData.cartProducts;
       return this.orderService.createOrder(orderData, cartProducts, orderData.userId);
     } catch (error) {
-      console.log(error);
+      // console.log(error);
       throw error;
     }
   }

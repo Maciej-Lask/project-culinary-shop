@@ -8,7 +8,7 @@ import styles from './OrderItem.module.scss';
 const OrderItem = ({ product }) => {
   const [count, setCount] = useState(product.count);
 
-  const productData = useSelector((state) => getProductById(state, product.id));
+  const productData = useSelector((state) => getProductById(state, product.productId));
 
   return (
     <div className={styles.orderItem}>

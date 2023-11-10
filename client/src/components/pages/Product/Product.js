@@ -18,15 +18,16 @@ const Product = () => {
 
   const handleAddToCart = () => {
     const cart = JSON.parse(localStorage.getItem('cart')) || { products: [] };
+    console.log(product.id);
     const existingProductIndex = cart.products.findIndex(
-      (item) => item.id === product.id,
+      (item) => item.productId === product.id,
     );
 
     if (existingProductIndex !== -1) {
       cart.products[existingProductIndex].count += productCount;
     } else {
       cart.products.push({
-        id: product.id,
+        productId: product.id,
         count: productCount,
         price: product.price,
       });

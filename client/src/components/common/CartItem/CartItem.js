@@ -12,7 +12,7 @@ const CartItem = ({ product, updateCart, removeProduct }) => {
   const [count, setCount] = useState(product.count);
   const [comment, setComment] = useState(product.comment);
 
-  const productData = useSelector((state) => getProductById(state, product.id));
+  const productData = useSelector((state) => getProductById(state, product.productId));
   const handleIncrement = () => {
     setCount(count + 1);
     updateCart(product.id, count + 1);
@@ -48,48 +48,56 @@ const CartItem = ({ product, updateCart, removeProduct }) => {
   return (
     <div className={styles.cartItem}>
       <p>{product.title}</p>
-      {productData && (
-        <img className={styles.image} src={`${IMAGES_URL}/${productData.image}`} alt={productData.title}></img>
-      )}
-      <div className={`row ${styles.pricesRow}`}>
-        <p className="col-6">Price per item: ${product.price}</p>
-        <p className="col-6">Total for this item: ${product.price * count}</p>
+      <div className="row">
+        <div className={` col-12 col-md-6 row ${styles.imageRow}`}>
+          {productData && (
+            <img
+              className={styles.image}
+              src={`${IMAGES_URL}/${productData.image}`}
+              alt={productData.title}
+            ></img>
+          )}
+        </div>
+        <div className={`col-12 col-md-6 row ${styles.pricesRow}`}>
+          <p className="col-6">Price per item: ${product.price}</p>
+          <p className="col-6">Total for this item: ${product.price * count}</p>
+        </div>
+        <div className={`row ${styles.buttonsRow}`}>
+          <Button
+            className={`${styles.button} ${styles.countMinus} col-5 col-md-2 col-lg-1`}
+            variant="outline-primary"
+            onClick={handleDecrement}
+          >
+            <FontAwesomeIcon icon={faMinus} />
+          </Button>
+          <p className={`${styles.button} ${styles.count} col-md-2 col-lg-1`}>
+            {count}
+          </p>
+          <Button
+            className={`${styles.button} ${styles.countMinus} col-5 col-md-2 col-lg-1`}
+            variant="outline-primary"
+            onClick={handleIncrement}
+          >
+            <FontAwesomeIcon icon={faPlus} />
+          </Button>
+          <Button
+            className={`col-12 col-md-1 ${styles.removeProductButton}`}
+            variant="outline-dark"
+            onClick={handleRemove}
+          >
+            <FontAwesomeIcon icon={faTrash} />
+          </Button>
+        </div>
+        <Form.Group className="mt-2">
+          <Form.Label>Comment:</Form.Label>
+          <Form.Control
+            type="text"
+            placeholder="Add a comment"
+            value={comment}
+            onChange={handleCommentChange}
+          />
+        </Form.Group>
       </div>
-      <div className={`row ${styles.buttonsRow}`}>
-        <Button
-          className={`${styles.button} ${styles.countMinus} col-5 col-md-2 col-lg-1`}
-          variant="outline-primary"
-          onClick={handleDecrement}
-        >
-          <FontAwesomeIcon icon={faMinus} />
-        </Button>
-        <p className={`${styles.button} ${styles.count} col-md-2 col-lg-1`}>
-          {count}
-        </p>
-        <Button
-          className={`${styles.button} ${styles.countMinus} col-5 col-md-2 col-lg-1`}
-          variant="outline-primary"
-          onClick={handleIncrement}
-        >
-          <FontAwesomeIcon icon={faPlus} />
-        </Button>
-        <Button
-          className={`col-12 col-md-1 ${styles.removeProductButton}`}
-          variant="outline-dark"
-          onClick={handleRemove}
-        >
-          <FontAwesomeIcon icon={faTrash} />
-        </Button>
-      </div>
-      <Form.Group className="mt-2">
-        <Form.Label>Comment:</Form.Label>
-        <Form.Control
-          type="text"
-          placeholder="Add a comment"
-          value={comment}
-          onChange={handleCommentChange}
-        />
-      </Form.Group>
     </div>
   );
 };
