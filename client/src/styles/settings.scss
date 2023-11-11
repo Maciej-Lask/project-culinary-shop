@@ -1,11 +1,3 @@
-$color-text: #141414;
-$color-text-light: #1d1d1d;
-$color-text-bright: #fff;
-$color-primary: #3498db;
-$color-secondary: #218c74;
-$color-background: #fff;
-$color-cornsilk: cornsilk;
-$color-light-grey: #ddd;
 
 
 $color-theme-1: #141414;
@@ -13,32 +5,28 @@ $color-theme-2: #1d1d1d;
 $color-theme-3: #fff;
 $color-theme-4: #3498db;
 $color-theme-5: #218c74;
-$color-theme-6: #fff;
+$color-theme-6: #f0932b;
 $color-theme-7: cornsilk;
+$color-theme-8: #d68529;
 
-$color-success: #01916d;
-$color-success-back: #00bc8c;
-$color-info: #2b7cb3;
-$color-info-back: #3598db;
-$color-warning: #f0932b;
-$color-warning-back: #d68529;
-$color-danger: #f0932b;
-$color-danger-back: #d68529;
-$color-error: #EA2027;
-$color-error-back: #ff5d6c;
+$color-text: #141414;
+$color-text-light: #1d1d1d;
+$color-text-bright: $color-theme-3;
+$color-primary: #3498db;
+$color-secondary: $color-theme-5;
+$color-background: $color-theme-3;
+$color-cornsilk: cornsilk;
+$color-light-grey: #ddd;
 
-$color-textfield-border: #ddd;
-$color-editor-border: #ccc;
-$color-editor-border-light: #ddd;
 
-$color-button: $color-danger-back;
-$color-button-hover: $color-danger;
+
+$color-button: $color-theme-8;
+$color-button-hover: $color-theme-6;
 
 
 $font-header: 'Source Sans Pro', sans-serif;
 $font-text: 'Source Sans Pro', sans-serif;
 
-$radius: 5px;
 $base-size: 14px;
 $transition: all 0.5s;
 

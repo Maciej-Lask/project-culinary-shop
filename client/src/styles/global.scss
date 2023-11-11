@@ -31,10 +31,6 @@ a, a:hover, a:visited {
 
 /* Bootstrap additions */
 
-.border-dashed {
-  border: 1px dashed $color-textfield-border !important;
-}
-
 .text-xl {
   font-size: ($base-size * 4);
 }

@@ -36,13 +36,11 @@ model Order {
   totalPrice Int
 
   cartProducts CartProduct[]
-
- 
 }
 
 model CartProduct {
   id        String  @id @default(uuid())
-  product   Product @relation(fields: [productId], references: [id])
+  product   Product @relation(fields: [productId], references: [id], onDelete: Cascade)
   productId String
   count     Int
   price     Int

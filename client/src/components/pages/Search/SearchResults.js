@@ -1,8 +1,8 @@
 import React, { useEffect, useState } from 'react';
-import { Container, Card, Row , Col, Spinner } from 'react-bootstrap';
+import { Container, Row, Col, Spinner } from 'react-bootstrap';
 import { useParams } from 'react-router-dom';
 import { API_URL } from '../../../config';
-import AdCard from '../../common/AdCard';
+import ProductCard from '../../common/ProductCard/ProductCard';
 
 const Search = () => {
   const { searchPhrase } = useParams();
@@ -10,14 +10,14 @@ const Search = () => {
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
-    fetch(`${API_URL}/ads/search/${searchPhrase}`)
+    fetch(`${API_URL}/products/search/${searchPhrase}`)
       .then((response) => response.json())
       .then((data) => {
         setSearchResults(data);
         setLoading(false);
       })
       .catch((error) => {
-        console.error('Wystąpił błąd podczas pobierania danych:', error);
+        console.error('Error fetching search results:', error);
         setLoading(false);
       });
   }, [searchPhrase]);
@@ -33,9 +33,9 @@ const Search = () => {
       ) : (
         <div className="search-results">
           <Row>
-            {searchResults.map((ad) => (
-              <Col key={ad._id} xs={12} md={6} lg={4}>
-                <AdCard ad={ad} />
+            {searchResults.map((product) => (
+              <Col key={product.id} xs={12} md={6} lg={4}>
+                <ProductCard product={product} />
               </Col>
             ))}
           </Row>

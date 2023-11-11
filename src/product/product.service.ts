@@ -16,6 +16,15 @@ export class ProductService {
     });
   }
 
+  public async searchProducts(searchPhrase: string): Promise<Product[]> {
+    return this.prismaService.product.findMany({
+      where: {
+        title: {
+          contains: searchPhrase,
+        },
+      },
+    });
+  }
 
   public async createProduct(
     productData: Omit<Product, 'id' | 'createdAt' | 'updatedAt'>,

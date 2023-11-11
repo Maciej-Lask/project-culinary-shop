@@ -102,12 +102,9 @@ const OrderSummary = () => {
       {status === 'success' && (
         <Alert variant="success">
           Your order has been successfully submitted.{' '}
-          <Button variant="primary" href="/">
-            Continue Shopping
-          </Button>
         </Alert>
       )}
-      {cart.products.length === 0 && (
+      {(cart.products.length === 0 && status !== 'success') && (
         <Alert variant="info">
           Your cart is empty.{' '}
           <Button variant="primary" href="/">

@@ -83,12 +83,14 @@ const Product = () => {
                 <Card.Text>Price: ${product.price * productCount}</Card.Text>
                 <div className={`row  ${styles.buttonsRow}`}>
                   <Button
+                    variant='secondary'
                     className={`${styles.button} col-md-10 col-lg-3 `}
                     onClick={handleAddToCart}
                   >
                     Add to Cart
                   </Button>
                   <Button
+                    variant='secondary'
                     className={`${styles.button} ${styles.countMinus} col-5 col-md-3 col-lg-1`}
                     onClick={decrementProductCount}
                   >
@@ -100,6 +102,7 @@ const Product = () => {
                     {productCount}
                   </p>
                   <Button
+                    variant='secondary'
                     className={`${styles.button} ${styles.countPlus} col-5 col-md-3 col-lg-1`}
                     onClick={incrementProductCount}
                   >

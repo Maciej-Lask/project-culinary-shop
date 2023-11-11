@@ -65,7 +65,7 @@ const CartItem = ({ product, updateCart, removeProduct }) => {
         <div className={`row ${styles.buttonsRow}`}>
           <Button
             className={`${styles.button} ${styles.countMinus} col-5 col-md-2 col-lg-1`}
-            variant="outline-primary"
+            variant="dark"
             onClick={handleDecrement}
           >
             <FontAwesomeIcon icon={faMinus} />
@@ -75,7 +75,7 @@ const CartItem = ({ product, updateCart, removeProduct }) => {
           </p>
           <Button
             className={`${styles.button} ${styles.countMinus} col-5 col-md-2 col-lg-1`}
-            variant="outline-primary"
+            variant="dark"
             onClick={handleIncrement}
           >
             <FontAwesomeIcon icon={faPlus} />

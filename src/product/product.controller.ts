@@ -29,6 +29,11 @@ export class ProductController {
     return product;
   }
 
+  @Get('/search/:searchPhrase')
+  async searchProducts(@Param('searchPhrase') searchPhrase: string) {
+    return this.productService.searchProducts(searchPhrase);
+  }
+
   @Post('/')
   async createProduct(@Body() productData: CreateProductDTO) {
     return this.productService.createProduct(productData);

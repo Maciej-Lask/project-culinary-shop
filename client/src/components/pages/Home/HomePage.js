@@ -1,11 +1,11 @@
 import SearchForm from '../../features/SearchForm/SearchForm';
-import AdsSection from '../../features/AdsSection/AdsSection';
+import ProductsSection from '../../features/ProductsSection/ProductsSection';
 import styles from './HomePage.module.scss';
 
 const HomePage = () => (
   <div className={styles.homePage}>
     <SearchForm />
-    <AdsSection className={styles.products} />
+    <ProductsSection className={styles.products} />
   </div>
 );
 

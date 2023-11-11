@@ -12,7 +12,7 @@ import SignOut from './components/pages/SignOut/SignOut';
 
 import Product from './components/pages/Product/Product';
 
-import Search from './components/pages/Search/Search';
+import Search from './components/pages/Search/SearchResults';
 
 import { fetchProducts } from './redux/productsRedux';
 import { logIn } from './redux/usersRedux';
@@ -29,7 +29,6 @@ import { AUTH_URL } from './config';
 
 const App = () => {
   const dispatch = useDispatch();
-  // localStorage.setItem('user', JSON.stringify('unauthorized'));
   useEffect(() => {
     dispatch(fetchProducts());
   }, [dispatch]);
