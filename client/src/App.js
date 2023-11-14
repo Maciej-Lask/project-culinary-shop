@@ -34,22 +34,33 @@ const App = () => {
   }, [dispatch]);
 
   useEffect(() => {
-    const userData = localStorage.getItem('user');
-    console.log(userData);
+    const userData = JSON.parse(localStorage.getItem('user'));
+    console.log(localStorage.getItem('user'));
     if (userData) {
-      const userObj = JSON.parse(userData);
+      console.log(userData);
+    }
+
+    if (userData && userData.email !== undefined && userData.email !== null) {
+      const userObj = userData.email;
+      console.log(userObj);
       dispatch(logIn(userObj));
     } else {
-      localStorage.setItem('user', JSON.stringify('unauthorized'));
+      console.log('Fetching user data...');
       fetch(`${AUTH_URL}/user`, {
         method: 'GET',
+        credentials: 'include',
       })
-        .then((response) => response.json())
-        .then((response) => {
-          console.log(response);
-          if (response) {
-            dispatch(logIn(response));
-            localStorage.setItem('user', JSON.stringify(response));
+        .then((res) => res.json())
+        .then((userData) => {
+          console.log('Response:', userData);
+          if (userData && userData.email !== undefined && userData.email !== null) {
+            dispatch(logIn(userData.email));
+            console.log(userData);
+            localStorage.setItem('user', JSON.stringify(userData));
+
+            console.log(userData.id);
+            console.log(userData.email);
+            console.log(userData.role);
           }
         })
         .catch((error) => {
@@ -64,9 +75,8 @@ const App = () => {
         <Route path="/" element={<Home />} />
         <Route path="/contact-us" element={<ContactPage />} />
         <Route path="/about-us" element={<AboutUsPage />} />
-        
-        <Route path="/cart" element={<CartPage />} />
 
+        <Route path="/cart" element={<CartPage />} />
 
         <Route path="/order" element={<Order />} />
         <Route path="/my-orders" element={<MyOrders />} />
@@ -79,7 +89,6 @@ const App = () => {
         <Route path="/sign-up" element={<SignUp />} />
         <Route path="/sign-in" element={<SignIn />} />
         <Route path="/sign-out" element={<SignOut />} />
-        
 
         <Route path="*" element={<NotFound />} />
       </Routes>

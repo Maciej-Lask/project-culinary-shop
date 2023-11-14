@@ -13,13 +13,13 @@ const SignOut = () => {
       method: 'DELETE',
       headers: {
         'Content-Type': 'application/json',
-        // credentials: 'include',
+        credentials: 'include',
       },
     };
 
     fetch(`${AUTH_URL}/logout`, options).then(() => {
       dispatch(logOut());
-      localStorage.setItem('user', JSON.stringify('unauthorized'));
+      localStorage.removeItem('user');
       localStorage.removeItem('cart');
       setTimeout(() => {
         navigate('/');

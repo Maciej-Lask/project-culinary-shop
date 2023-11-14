@@ -18,7 +18,6 @@ const Product = () => {
 
   const handleAddToCart = () => {
     const cart = JSON.parse(localStorage.getItem('cart')) || { products: [] };
-    console.log(product.id);
     const existingProductIndex = cart.products.findIndex(
       (item) => item.productId === product.id,
     );

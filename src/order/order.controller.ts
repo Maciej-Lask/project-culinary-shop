@@ -9,21 +9,26 @@ import {
   ConflictException,
   Param,
   ParseUUIDPipe,
+  UseGuards,
 } from '@nestjs/common';
 import { OrderService } from './order.service';
 import { OrderDTO } from './dtos/create-order.dto';
 import { CartProduct } from '@prisma/client';
+import { JwtAuthGuard } from 'src/auth/jwt-auth.guard';
+import { AdminAuthGuard } from 'src/auth/admin-auth.guard';
 
 @Controller('orders')
 export class OrderController {
   constructor(private orderService: OrderService) {}
 
   @Get('/')
+  @UseGuards(JwtAuthGuard)
   public getAllOrders() {
     return this.orderService.getAllOrders();
   }
 
   @Get('/:id')
+  @UseGuards(JwtAuthGuard)
   async getOrderById(@Param('id', new ParseUUIDPipe()) id: string) {
     const order = await this.orderService.getOrderById(id);
     if (!order) throw new NotFoundException('Order not found');
@@ -31,11 +36,16 @@ export class OrderController {
   }
 
   @Post('/')
+  @UseGuards(JwtAuthGuard)
   async createOrder(@Body() orderData: OrderDTO) {
     console.log(orderData);
     try {
-       const cartProducts: Omit<CartProduct, 'id'>[]  =   orderData.cartProducts;
-      return this.orderService.createOrder(orderData, cartProducts, orderData.userId);
+      const cartProducts: Omit<CartProduct, 'id'>[] = orderData.cartProducts;
+      return this.orderService.createOrder(
+        orderData,
+        cartProducts,
+        orderData.userId,
+      );
     } catch (error) {
       // console.log(error);
       throw error;
@@ -43,6 +53,8 @@ export class OrderController {
   }
 
   @Put('/:id')
+  @UseGuards(JwtAuthGuard)
+  @UseGuards(AdminAuthGuard)
   async updateOrder(
     @Param('id', new ParseUUIDPipe()) id: string,
     @Body() orderData: OrderDTO,
@@ -63,6 +75,8 @@ export class OrderController {
   }
 
   @Delete('/:id')
+  @UseGuards(JwtAuthGuard)
+  @UseGuards(AdminAuthGuard)
   async deleteOrder(@Param('id', new ParseUUIDPipe()) id: string) {
     if (!(await this.orderService.getOrderById(id)))
       throw new NotFoundException('Order not found');

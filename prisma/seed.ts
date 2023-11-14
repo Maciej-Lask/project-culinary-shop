@@ -121,6 +121,7 @@ function getUsers() {
 
 async function seed() {
   await db.product.deleteMany();
+  
 
   await Promise.all(
     getProducts().map((product) => {

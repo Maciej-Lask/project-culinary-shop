@@ -32,7 +32,7 @@ const SignIn = () => {
       .then((res) => {
         console.log('Response:', res);
         if (res.status === 201) {
-          localStorage.setItem('user', JSON.stringify(email));
+          // localStorage.setItem('email', JSON.stringify(email));
 
           setStatus('success');
           dispatch(logIn({ email }));

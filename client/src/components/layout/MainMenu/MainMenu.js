@@ -9,16 +9,21 @@ import {
   NavLink,
 } from 'reactstrap';
 import { FaBars } from 'react-icons/fa';
-import styles from'./MainMenu.module.scss';
+import styles from './MainMenu.module.scss';
 import { useState } from 'react';
-import { useSelector } from 'react-redux';
-  import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-  import { faShoppingBasket } from '@fortawesome/free-solid-svg-icons';
-  import logo from '../../../img/brand/brand.png';
+import { useSelector, useDispatch } from 'react-redux';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faShoppingBasket } from '@fortawesome/free-solid-svg-icons';
+import logo from '../../../img/brand/brand.png';
+import { fetchUser } from '../../../redux/usersRedux';
 
 const MainMenu = () => {
+  const dispatch = useDispatch();
   const [isOpen, setIsOpen] = useState(false);
+
   const user = useSelector((state) => state.user);
+  console.log(user);
+
 
   const toggle = () => {
     setIsOpen(!isOpen);
@@ -45,7 +50,7 @@ const MainMenu = () => {
               <NavLink href="/about-us">About Us</NavLink>
             </NavItem>
 
-            {!user || user === 'unauthorized' ? (
+            {!user ? (
               <>
                 <NavItem className="d-block d-xl-block">
                   <NavLink href="/sign-up">Sign Up</NavLink>
