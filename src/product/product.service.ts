@@ -1,18 +1,25 @@
 import { Injectable, NotFoundException, ConflictException } from '@nestjs/common';
 import { PrismaService } from 'src/prisma/prisma.service';
-import { Product } from '@prisma/client';
+import { Product, ProductImage } from '@prisma/client';
 
 @Injectable()
 export class ProductService {
   constructor(private prismaService: PrismaService) {}
 
   public getAllProducts(): Promise<Product[]> {
-    return this.prismaService.product.findMany();
+    return this.prismaService.product.findMany({
+      include: {
+        gallery: true,
+      },
+    });
   }
 
   public getProductById(id: string): Promise<Product | null> {
     return this.prismaService.product.findUnique({
       where: { id },
+      include: {
+        gallery: true,
+      }
     });
   }
 

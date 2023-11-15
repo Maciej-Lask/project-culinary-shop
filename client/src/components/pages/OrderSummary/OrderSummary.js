@@ -15,7 +15,7 @@ import { useState, useEffect } from 'react';
 import { API_URL } from '../../../config';
 
 
-const OrderSummary = () => {
+const OrderSummary = () => { 
   const [cart, setCart] = useState({ products: [] });
   const [status, setStatus] = useState(null); 
   const [isModalOpen, setIsModalOpen] = useState(true);

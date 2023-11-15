@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import { Form, Button } from 'react-bootstrap';
 import { useNavigate } from 'react-router-dom';
 import styles from './SearchForm.module.scss';
+import { FaSearch } from 'react-icons/fa';
 
 const SearchForm = () => {
   const [searchTerm, setSearchTerm] = useState('');
@@ -12,9 +13,8 @@ const SearchForm = () => {
   };
 
   return (
-    <Form className={` ${styles.searchForm} d-flex flex-column  text-center mb-4`}>
-      <Form.Group className="w-75 m-auto mb-2" controlId="searchTerm">
-        <Form.Label className="text-light">Search for Products</Form.Label>
+    <Form className={` ${styles.searchForm} row mx-auto`}>
+      <Form.Group className="col-9" controlId="searchTerm">
         <Form.Control
           type="text"
           placeholder="Enter search term"
@@ -23,11 +23,11 @@ const SearchForm = () => {
         />
       </Form.Group>
       <Button
-        className={styles.submitSearch}
+        className={`${styles.submitSearch} col-1`}
         variant="warning"
         onClick={handleSearch}
       >
-        Search
+        <FaSearch/>
       </Button>
     </Form>
   );

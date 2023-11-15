@@ -11,14 +11,12 @@ import {
 import { FaBars } from 'react-icons/fa';
 import styles from './MainMenu.module.scss';
 import { useState } from 'react';
-import { useSelector, useDispatch } from 'react-redux';
+import { useSelector } from 'react-redux';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faShoppingBasket } from '@fortawesome/free-solid-svg-icons';
 import logo from '../../../img/brand/brand.png';
-import { fetchUser } from '../../../redux/usersRedux';
 
 const MainMenu = () => {
-  const dispatch = useDispatch();
   const [isOpen, setIsOpen] = useState(false);
 
   const user = useSelector((state) => state.user);
@@ -32,7 +30,7 @@ const MainMenu = () => {
   return (
     <div className={styles.mainMenu}>
       <Navbar expand="md" className="animated fadeIn">
-        <NavbarBrand>
+        <NavbarBrand className={styles.navbarBrand}>
           <img src={logo} alt="Logo" className={styles.logo} />
         </NavbarBrand>
         <NavbarToggler className="ms-auto" onClick={toggle}>

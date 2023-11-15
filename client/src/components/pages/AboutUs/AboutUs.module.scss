@@ -21,5 +21,30 @@
   background-repeat: no-repeat;
   background-size: cover;
   background-position: center;
-  padding: 50px;
+  padding: 20px;
+  @media screen and (max-width: 400px) {
+    h2,
+    p {
+      font-size: $base-size * 1.5;
+    }
+    h1,
+    h2 {
+      margin: 0;
+    }
+    h1 {
+      font-size: $base-size * 2;
+    }
+  }
+  @media screen and (max-width: 300px) {
+    h1 {
+      font-size: $base-size * 1.5;
+    }
+    h2 {
+      font-size: $base-size * 1.2;
+      line-height: normal;
+    }
+    p {
+      font-size: $base-size * 1;
+    }
+  }
 }

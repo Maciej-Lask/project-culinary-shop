@@ -1,8 +1,6 @@
 @import '../../../styles/settings.scss';
 
 .contactPage {
-  padding: 50px;
-  
   h1,
   h2 {
     text-align: center;
@@ -14,17 +12,42 @@
   color: $color-text-bright;
   text-shadow: 1px 1px 1px $color-text;
   background-image: url('/img/backgrounds/contact-us.png');
-  //  background-image: url("https://images.pexels.com/photos/7209396/pexels-photo-7209396.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1");
   background-repeat: no-repeat;
   background-size: cover;
   background-position: center;
-  padding: 50px;
+  padding: 20px;
 
   label {
     font-size: $base-size * 2;
   }
-  .submit{
+  .submit {
     margin-top: 10px;
     color: $color-text-bright;
+  }
+  @media screen and (max-width: 400px) {
+    h2,
+    p,
+    label {
+      font-size: $base-size * 1.5;
+    }
+    h1,
+    h2 {
+      margin: 0;
+    }
+    h1 {
+      font-size: $base-size * 2;
+    }
+  }
+  @media screen and (max-width: 250px) {
+    h1 {
+      font-size: $base-size * 1.5;
+    }
+    h2 {
+      font-size: $base-size * 1.2;
+      line-height: normal;
+    }
+    p {
+      font-size: $base-size * 0.8;
+    }
   }
 }
