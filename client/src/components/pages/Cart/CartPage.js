@@ -2,8 +2,11 @@ import React, { useState, useEffect } from 'react';
 import { Button, Container } from 'react-bootstrap';
 import CartItem from '../../common/CartItem/CartItem';
 import { Link } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 
 const CartPage = () => {
+  const navigate = useNavigate();
+
   const [cart, setCart] = useState({ products: [] });
 
   useEffect(() => {
@@ -41,28 +44,37 @@ const CartPage = () => {
     return total + product.price * product.count;
   }, 0);
 
-  if(cart.products.length === 0) {
-     return(
-
-    <Container >
-     <h1>Cart is empty</h1>
-     <Link to="/">
-       <Button variant="outline-dark">Shop Now</Button>
-     </Link>
-    </Container>
-     )
+  if (cart.products.length === 0) {
+    return (
+      <Container>
+        <h1>Cart is empty</h1>
+        <Link to="/">
+          <Button variant="outline-dark">Shop Now</Button>
+        </Link>
+      </Container>
+    );
   }
+
+
+  const handleSubmit = () => {
+    navigate('/order-summary');
+  };
 
   return (
     <Container>
       <h1>Cart</h1>
       {cart.products.map((product) => (
-        <CartItem key={product.id} product={product} updateCart={updateCart} removeProduct={removeProduct} />
+        <CartItem
+          key={product.id}
+          product={product}
+          updateCart={updateCart}
+          removeProduct={removeProduct}
+        />
       ))}
       <h5 className="my-5">Total Price: ${totalPrice}</h5>
-      <Link to="/order-summary">
-        <Button variant="outline-dark">Order Summary</Button>
-      </Link>
+      <Button variant="outline-dark" onClick={handleSubmit}>
+        Order Summary
+      </Button>
     </Container>
   );
 };

@@ -1,5 +1,12 @@
 import React from 'react';
-import { Container, Card, Button, Spinner, Modal } from 'react-bootstrap';
+import {
+  Container,
+  Card,
+  Button,
+  Spinner,
+  Modal,
+  Carousel,
+} from 'react-bootstrap';
 import { useSelector } from 'react-redux';
 import { Link, useParams } from 'react-router-dom';
 import { IMAGES_URL } from '../../../config';
@@ -8,17 +15,18 @@ import styles from './Product.module.scss';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faPlus, faMinus } from '@fortawesome/free-solid-svg-icons';
 import { useState } from 'react';
+import ProductCarousel from '../../features/ProductsCarousel/ProductsCarousel';
 
 const Product = () => {
   const { id } = useParams();
   const product = useSelector((state) => getProductById(state, id));
+  console.log(product);
 
   const [productCount, setProductCount] = useState(1);
   const [isModalOpen, setIsModalOpen] = useState(false);
 
   const handleAddToCart = () => {
     const cart = JSON.parse(localStorage.getItem('cart')) || { products: [] };
-    console.log(product.id);
     const existingProductIndex = cart.products.findIndex(
       (item) => item.productId === product.id,
     );
@@ -72,25 +80,21 @@ const Product = () => {
           <>
             <h2 className="pt-5">{product.title}</h2>
             <Card>
-              <Card.Img
-                className={styles.image}
-                src={`${IMAGES_URL}/${product.image}`}
-                alt={product.title}
-              />
+              <ProductCarousel product={product} />
               <Card.Body>
                 <Card.Title>{product.title}</Card.Title>
                 <Card.Text>{product.description}</Card.Text>
                 <Card.Text>Price: ${product.price * productCount}</Card.Text>
                 <div className={`row  ${styles.buttonsRow}`}>
                   <Button
-                    variant='secondary'
+                    variant="secondary"
                     className={`${styles.button} col-md-10 col-lg-3 `}
                     onClick={handleAddToCart}
                   >
                     Add to Cart
                   </Button>
                   <Button
-                    variant='secondary'
+                    variant="secondary"
                     className={`${styles.button} ${styles.countMinus} col-5 col-md-3 col-lg-1`}
                     onClick={decrementProductCount}
                   >
@@ -102,7 +106,7 @@ const Product = () => {
                     {productCount}
                   </p>
                   <Button
-                    variant='secondary'
+                    variant="secondary"
                     className={`${styles.button} ${styles.countPlus} col-5 col-md-3 col-lg-1`}
                     onClick={incrementProductCount}
                   >

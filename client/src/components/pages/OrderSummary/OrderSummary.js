@@ -1,37 +1,47 @@
 import React from 'react';
-import { Container, Form, Button, Row, Col, ListGroup, Alert } from 'react-bootstrap';
+import {
+  Container,
+  Form,
+  Button,
+  Row,
+  Col,
+  ListGroup,
+  Alert,
+  Modal,
+} from 'react-bootstrap';
 import OrderItem from '../../common/OrderItem/OrderItem';
+import { Link } from 'react-router-dom';
 import { useState, useEffect } from 'react';
-import { API_URL, AUTH_URL } from '../../../config';
+import { API_URL } from '../../../config';
 
-const OrderSummary = () => {
+
+const OrderSummary = () => { 
   const [cart, setCart] = useState({ products: [] });
-  const [status, setStatus] = useState(null); // null, success, serverError, clientError, loginError, loading
+  const [status, setStatus] = useState(null); 
+  const [isModalOpen, setIsModalOpen] = useState(true);
 
   const [name, setName] = useState('');
-  const [userId, setUserId] = useState('');
+
+  const userData = JSON.parse(localStorage.getItem('user'));
+  const [userId, setUserId] = useState(userData?.id);
   const [email, setEmail] = useState('');
   const [address, setAddress] = useState('');
   const [paymentMethod, setPaymentMethod] = useState('Credit Card');
-
+  
+  
+  
+  
   useEffect(() => {
     const storedCart = JSON.parse(localStorage.getItem('cart')) || {
       products: [],
     };
-    setCart(storedCart);
+    if (!userId || !userData) {
+      console.log(userData);
 
-    fetch(`${AUTH_URL}/user`, {
-      method: 'GET',
-      credentials: 'include',
-    })
-      .then((res) => res.json())
-      .then((userData) => {
-        setUserId(userData.id);
-      })
-      .catch((err) => {
-        console.log(err);
-      });
-  }, [userId]);
+      setStatus('loginError');
+    }
+    setCart(storedCart);
+  }, []);
 
   const totalPrice = cart.products.reduce((total, product) => {
     return total + product.price * product.count;
@@ -39,10 +49,16 @@ const OrderSummary = () => {
 
   const handleOrderSubmit = (e) => {
     e.preventDefault();
-        if (!name || !email || !address || !paymentMethod || cart.products.length === 0) {
-          setStatus('clientError');
-          return;
-        }
+    if (
+      !name ||
+      !email ||
+      !address ||
+      !paymentMethod ||
+      cart.products.length === 0
+    ) {
+      setStatus('clientError');
+      return;
+    }
     const orderData = {
       name: name,
       userId: userId,
@@ -60,11 +76,9 @@ const OrderSummary = () => {
       body: JSON.stringify(orderData),
     };
     setStatus('loading');
-    console.log('Order data:', orderData);
 
     fetch(`${API_URL}/orders`, options)
       .then((res) => {
-        console.log('Response:', res);
         if (res.status === 201) {
           setStatus('success');
           localStorage.removeItem('cart');
@@ -79,96 +93,116 @@ const OrderSummary = () => {
         console.log(err);
         setStatus('serverError');
       });
+  };
 
-    console.log('Order submitted');
+  const closeModal = () => {
+    setIsModalOpen(false);
   };
 
   return (
     <Container>
       <h1>Order Summary</h1>
 
+      {status === 'loginError' && status !== null && ( <Modal show={isModalOpen} onHide={closeModal}>
+            <Modal.Header closeButton>
+              <Modal.Title>You need to be logged in to order</Modal.Title>
+            </Modal.Header>
+            <Modal.Footer>
+              <Link to="/sign-in" onClick={closeModal}>
+                <Button variant="outline-warning">Sign In</Button>
+              </Link>
+            </Modal.Footer>
+          </Modal>
+        )}
+
       {status === 'clientError' && (
         <Alert variant="danger">
-          Please fill in all required fields and make sure your cart is not empty.
+          Please fill in all required fields and make sure your cart is not
+          empty.
         </Alert>
       )}
-      {/* Display server error message */}
       {status === 'serverError' && (
         <Alert variant="danger">
           Something went wrong. Please try again later.
         </Alert>
       )}
-      {/* Display success message */}
       {status === 'success' && (
-        <Alert variant="success">
-          Your order has been successfully submitted.{' '}
-        </Alert>
+        <div>
+          <Alert variant="success">
+            Your order has been successfully submitted.
+          </Alert>
+          <Link to="/">
+            <Button variant="outline-dark">Continue Shopping</Button>
+          </Link>
+        </div>
       )}
-      {(cart.products.length === 0 && status !== 'success') && (
-        <Alert variant="info">
-          Your cart is empty.{' '}
-          <Button variant="primary" href="/">
-            Continue Shopping
-          </Button>
-        </Alert>
+      {cart.products.length === 0 && status !== 'success' && (
+        <div>
+          <Alert variant="info">Your cart is empty.</Alert>
+          <Link to="/">
+            <Button variant="outline-dark">Continue Shopping</Button>
+          </Link>
+        </div>
       )}
-      <Row>
-        <Col lg={8}>
-          <h2>Your Cart</h2>
-          <ListGroup>
-            {cart.products.map((product) => (
-              <OrderItem key={product.id} product={product} />
-            ))}
-          </ListGroup>
-          <h5 className="my-5 text-end">Total Price: ${totalPrice}</h5>
-        </Col>
-        <Col lg={4}>
-          <h2>Contact Information</h2>
-          <Form>
-            <Form.Group className="mb-3">
-              <Form.Label>Name</Form.Label>
-              <Form.Control
-                type="text"
-                value={name}
-                onChange={(e) => setName(e.target.value)}
-                placeholder="Enter your name"
-              />
-            </Form.Group>
-            <Form.Group className="mb-3">
-              <Form.Label>Email</Form.Label>
-              <Form.Control
-                type="email"
-                value={email}
-                onChange={(e) => setEmail(e.target.value)}
-                placeholder="Enter your email"
-              />
-            </Form.Group>
-            <Form.Group className="mb-3">
-              <Form.Label>Address</Form.Label>
-              <Form.Control
-                type="text"
-                value={address}
-                onChange={(e) => setAddress(e.target.value)}
-                placeholder="Enter your address"
-              />
-            </Form.Group>
-            <Form.Group className="mb-3">
-              <Form.Label>Payment Method</Form.Label>
-              <Form.Control
-                as="select"
-                value={paymentMethod}
-                onChange={(e) => setPaymentMethod(e.target.value)}
-              >
-                <option>Credit Card</option>
-                <option>PayPal</option>
-              </Form.Control>
-            </Form.Group>
-            <Button variant="primary" onClick={handleOrderSubmit}>
-              Order
-            </Button>
-          </Form>
-        </Col>
-      </Row>
+      {status !== 'success' && cart.products.length !== 0 && (
+        <Row>
+          <Col lg={8}>
+            <h2>Your Cart</h2>
+            <ListGroup>
+              {cart.products.map((product) => (
+                <OrderItem key={product.id} product={product} />
+              ))}
+            </ListGroup>
+            <h5 className="my-5 text-end">Total Price: ${totalPrice}</h5>
+          </Col>
+          <Col lg={4}>
+            <h2>Contact Information</h2>
+            <Form>
+              <Form.Group className="mb-3">
+                <Form.Label>Name</Form.Label>
+                <Form.Control
+                  type="text"
+                  value={name}
+                  onChange={(e) => setName(e.target.value)}
+                  placeholder="Enter your name"
+                />
+              </Form.Group>
+              <Form.Group className="mb-3">
+                <Form.Label>Email</Form.Label>
+                <Form.Control
+                  type="email"
+                  value={email}
+                  onChange={(e) => setEmail(e.target.value)}
+                  placeholder="Enter your email"
+                />
+              </Form.Group>
+              <Form.Group className="mb-3">
+                <Form.Label>Address</Form.Label>
+                <Form.Control
+                  type="text"
+                  value={address}
+                  onChange={(e) => setAddress(e.target.value)}
+                  placeholder="Enter your address"
+                />
+              </Form.Group>
+              <Form.Group className="mb-3">
+                <Form.Label>Payment Method</Form.Label>
+                <Form.Control
+                  as="select"
+                  value={paymentMethod}
+                  onChange={(e) => setPaymentMethod(e.target.value)}
+                >
+                  <option>Credit Card</option>
+                  <option>PayPal</option>
+                </Form.Control>
+              </Form.Group>
+              <Button variant="outline-dark" onClick={handleOrderSubmit}>
+                Order
+              </Button>
+            </Form>
+          </Col>
+        </Row>
+      )}
     </Container>
   );
 };

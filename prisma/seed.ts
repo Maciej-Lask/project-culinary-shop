@@ -10,6 +10,13 @@ function getProducts() {
       description:
         'High-quality knife crafted from premium stainless steel. Ideal for all your culinary needs, from slicing to dicing and chopping.',
       image: 'knife-1.png',
+      gallery: {
+        create: [
+          { image: 'knife-1.png' },
+          { image: 'knife-1.png' },
+          { image: 'knife-1.png' },
+        ],
+      },
     },
     {
       title: 'Knife-2',
@@ -17,6 +24,13 @@ function getProducts() {
       description:
         'Exceptional premium knife designed for professional chefs. Precision and durability make it the perfect tool for culinary mastery.',
       image: 'knife-2.png',
+      gallery: {
+        create: [
+          { image: 'knife-2.png' },
+          { image: 'knife-2.png' },
+          { image: 'knife-2.png' },
+        ],
+      }
     },
     {
       title: 'Knife-3',
@@ -24,6 +38,13 @@ function getProducts() {
       description:
         'Versatile utility knife, an essential in every kitchen. Its ergonomic design ensures comfort, making it suitable for various tasks.',
       image: 'knife-3.png',
+      gallery: {
+        create: [
+          { image: 'knife-3.png' },
+          { image: 'knife-3.png' },
+          { image: 'knife-3.png' },
+        ],
+      }
     },
     {
       title: 'Pot-1',
@@ -31,6 +52,13 @@ function getProducts() {
       description:
         'Durable and spacious cooking pot with a secure-fitting lid. Crafted for versatile cooking, from simmering soups to boiling pasta.',
       image: 'pot-1.png',
+      gallery: {
+        create: [
+          { image: 'pot-1.png' },
+          { image: 'pot-2.png' },
+          { image: 'pot-3.png' },
+        ],
+      }
     },
     {
       title: 'Pot-2',
@@ -38,6 +66,13 @@ function getProducts() {
       description:
         'Non-stick saucepan for effortless cooking and easy cleaning. Its sleek design and advanced coating make it a kitchen essential.',
       image: 'pot-2.png',
+      gallery: {
+        create: [
+          { image: 'pot-2.png' },
+          { image: 'pot-3.png' },
+          { image: 'pot-1.png' },
+        ],
+      }
     },
     {
       title: 'Pot-3',
@@ -45,6 +80,13 @@ function getProducts() {
       description:
         'Stainless steel stockpot, perfect for simmering hearty soups and stews. A must-have for home cooks who value both style and function.',
       image: 'pot-3.png',
+      gallery: {
+        create: [
+          { image: 'pot-3.png' },
+          { image: 'pot-1.png' },
+          { image: 'pot-2.png' },
+        ],
+      }
     },
     {
       title: 'Pan-1',
@@ -52,6 +94,13 @@ function getProducts() {
       description:
         "Frying pan with a non-stick surface for perfect frying results. Whether you're searing meats or cooking delicate omelets, this pan delivers.",
       image: 'pan-1.png',
+      gallery: {
+        create: [
+          { image: 'pan-1.png' },
+          { image: 'pan-2.png' },
+          { image: 'pan-3.png' },
+        ],
+      }
     },
     {
       title: 'Pan-2',
@@ -59,6 +108,13 @@ function getProducts() {
       description:
         'Cast iron skillet for searing, baking, and more. The even heat distribution ensures consistent results with every culinary creation.',
       image: 'pan-2.png',
+      gallery: {
+        create: [
+          { image: 'pan-2.png' },
+          { image: 'pan-3.png' },
+          { image: 'pan-1.png' },
+        ],
+      }
     },
     {
       title: 'Pan-3',
@@ -66,6 +122,13 @@ function getProducts() {
       description:
         'Wok pan for stir-frying and mastering Asian cuisine. Its wide surface and high sides make it the go-to choice for flavorful stir-fry dishes.',
       image: 'pan-3.png',
+      gallery: {
+        create: [
+          { image: 'pan-3.png' },
+          { image: 'pan-1.png' },
+          { image: 'pan-2.png' },
+        ],
+      }
     },
     {
       title: 'Baking Set-1',
@@ -73,6 +136,13 @@ function getProducts() {
       description:
         'Complete baking set featuring a variety of molds and tools. From cakes to cookies, this set equips you for all your baking adventures.',
       image: 'baking-set-1.jpg',
+      gallery: {
+        create: [
+          { image: 'baking-set-1.jpg' },
+          { image: 'baking-set-1.jpg' },
+          { image: 'baking-set-1.jpg' },
+        ],
+      },
     },
     {
       title: 'Grill-1',
@@ -80,47 +150,56 @@ function getProducts() {
       description:
         'Premium grill pan for indoor and outdoor grilling. Achieve perfect grill marks on your favorite meats and vegetables, any time of the year.',
       image: 'grill-1.jpg',
-    },
-  ];
-}
-function getUsers() {
-  return [
-    {
-      id: 'test',
-      email: 'test@example.com',
-      role: Role.USER,
-      password: {
-        create: {
-          hashedPassword:
-            '$2a$10$plZkxTiqsbS.rcwbCo8jNO/Fg1u0VsD9yucUiPE/KYppflR301dmq',
-        },
-      },
-    },
-    {
-      email: 'user1@example.com',
-      role: Role.USER,
-      password: {
-        create: {
-          hashedPassword:
-            '$2a$10$plZkxTiqsbS.rcwbCo8jNO/Fg1u0VsD9yucUiPE/KYppflR301dmq',
-        },
-      },
-    },
-    {
-      email: 'user2@example.com',
-      role: Role.ADMIN,
-      password: {
-        create: {
-          hashedPassword:
-            '$2a$10$beaXjC2PuvXK7NboaamcVeQmvlrkHmdbOAKjKTTsH5UVygLubFvLq',
-        },
+      gallery: {
+        create: [
+          { image: 'grill-1.jpg' },
+          { image: 'grill-1.jpg' },
+          { image: 'grill-1.jpg' },
+        ],
       },
     },
   ];
 }
 
+function getUsers() {
+  return [
+    // {
+    //   id: 'test',
+    //   email: 'test@example.com',
+    //   role: Role.USER,
+    //   password: {
+    //     create: {
+    //       hashedPassword:
+    //         '$2a$10$plZkxTiqsbS.rcwbCo8jNO/Fg1u0VsD9yucUiPE/KYppflR301dmq',
+    //     },
+    //   },
+    // },
+    // {
+    //   email: 'user1@example.com',
+    //   role: Role.USER,
+    //   password: {
+    //     create: {
+    //       hashedPassword:
+    //         '$2a$10$plZkxTiqsbS.rcwbCo8jNO/Fg1u0VsD9yucUiPE/KYppflR301dmq',
+    //     },
+    //   },
+    // },
+    // {
+    //   email: 'user2@example.com',
+    //   role: Role.ADMIN,
+    //   password: {
+    //     create: {
+    //       hashedPassword:
+    //         '$2a$10$beaXjC2PuvXK7NboaamcVeQmvlrkHmdbOAKjKTTsH5UVygLubFvLq',
+    //     },
+    //   },
+    // },
+  ];
+}
+
 async function seed() {
   await db.product.deleteMany();
+  
 
   await Promise.all(
     getProducts().map((product) => {

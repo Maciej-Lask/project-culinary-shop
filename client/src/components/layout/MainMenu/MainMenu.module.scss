@@ -5,10 +5,20 @@
   }
   
   img{
-    margin-left: 20%;
+    width: 100%;
+    height: 100%;
     max-width: 150px;
     max-height: 150px;
   }
+  .navbarBrand{
+    margin: 0;
+  }
+    @media screen and (max-width: 768px) {
+    img {
+      display: none;
+    }
+  }
+  
   
   .logo {
     max-width: 150px;

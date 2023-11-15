@@ -9,16 +9,19 @@ import {
   NavLink,
 } from 'reactstrap';
 import { FaBars } from 'react-icons/fa';
-import styles from'./MainMenu.module.scss';
+import styles from './MainMenu.module.scss';
 import { useState } from 'react';
 import { useSelector } from 'react-redux';
-  import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-  import { faShoppingBasket } from '@fortawesome/free-solid-svg-icons';
-  import logo from '../../../img/brand/brand.png';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faShoppingBasket } from '@fortawesome/free-solid-svg-icons';
+import logo from '../../../img/brand/brand.png';
 
 const MainMenu = () => {
   const [isOpen, setIsOpen] = useState(false);
+
   const user = useSelector((state) => state.user);
+  console.log(user);
+
 
   const toggle = () => {
     setIsOpen(!isOpen);
@@ -27,7 +30,7 @@ const MainMenu = () => {
   return (
     <div className={styles.mainMenu}>
       <Navbar expand="md" className="animated fadeIn">
-        <NavbarBrand>
+        <NavbarBrand className={styles.navbarBrand}>
           <img src={logo} alt="Logo" className={styles.logo} />
         </NavbarBrand>
         <NavbarToggler className="ms-auto" onClick={toggle}>
@@ -45,7 +48,7 @@ const MainMenu = () => {
               <NavLink href="/about-us">About Us</NavLink>
             </NavItem>
 
-            {!user || user === 'unauthorized' ? (
+            {!user ? (
               <>
                 <NavItem className="d-block d-xl-block">
                   <NavLink href="/sign-up">Sign Up</NavLink>

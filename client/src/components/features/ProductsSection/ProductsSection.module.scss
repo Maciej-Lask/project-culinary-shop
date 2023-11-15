@@ -5,11 +5,14 @@
     height: 300px;
     object-fit: cover;
   }
-  .sectionTitle{
+  .sectionTitle {
+    font-size: $base-size * 4;
     color: $color-theme-7;
     text-shadow: 1px 1px 1px $color-text;
   }
-  
+  @media screen and (max-width: 300px) {
+    .sectionTitle {
+      font-size: $base-size * 1.8;
+    }
+  }
 }
-
- 
