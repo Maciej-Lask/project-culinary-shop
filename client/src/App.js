@@ -15,7 +15,7 @@ import Product from './components/pages/Product/Product';
 import Search from './components/pages/Search/SearchResults';
 
 import { fetchProducts } from './redux/productsRedux';
-import { logIn } from './redux/usersRedux';
+import { logIn, logOut } from './redux/usersRedux';
 
 import ContactPage from './components/pages/ContactUs/ContactUsPage';
 import AboutUsPage from './components/pages/AboutUs/AboutUsPage';
@@ -26,48 +26,39 @@ import MyOrders from './components/pages/MyOrders/MyOrders';
 import OrderSummary from './components/pages/OrderSummary/OrderSummary';
 
 import { AUTH_URL } from './config';
+import { useSelector } from 'react-redux';
 
 const App = () => {
   const dispatch = useDispatch();
+  const user = useSelector((state) => state.user);
+
   useEffect(() => {
     dispatch(fetchProducts());
-  }, [dispatch]);
-
-  useEffect(() => {
     const userData = JSON.parse(localStorage.getItem('user'));
-    console.log(localStorage.getItem('user'));
-    if (userData) {
-      console.log(userData);
-    }
 
     if (userData && userData.email !== undefined && userData.email !== null) {
-      const userObj = userData.email;
-      console.log(userObj);
-      dispatch(logIn(userObj));
-    } else {
-      console.log('Fetching user data...');
+      dispatch(logIn(userData.email));
+    } else if (user !== null) {
       fetch(`${AUTH_URL}/user`, {
         method: 'GET',
         credentials: 'include',
       })
         .then((res) => res.json())
         .then((userData) => {
-          console.log('Response:', userData);
-          if (userData && userData.email !== undefined && userData.email !== null) {
+          if (
+            userData &&
+            userData.email !== undefined &&
+            userData.email !== null
+          ) {
             dispatch(logIn(userData.email));
-            console.log(userData);
             localStorage.setItem('user', JSON.stringify(userData));
-
-            console.log(userData.id);
-            console.log(userData.email);
-            console.log(userData.role);
           }
         })
         .catch((error) => {
           console.error('Error while fetching user data:', error);
         });
     }
-  }, [dispatch]);
+  }, [user, dispatch]);
 
   return (
     <MainLayout>

@@ -47,7 +47,6 @@ export class OrderController {
         orderData.userId,
       );
     } catch (error) {
-      // console.log(error);
       throw error;
     }
   }

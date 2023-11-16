@@ -5,6 +5,7 @@ import { Form, Button, Alert, Spinner, AlertHeading } from 'react-bootstrap';
 import { AUTH_URL } from '../../../config';
 import { useDispatch } from 'react-redux';
 import { logIn } from '../../../redux/usersRedux';
+import styles from './SignIn.module.scss';
 
 const SignIn = () => {
   const navigate = useNavigate();
@@ -12,7 +13,7 @@ const SignIn = () => {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
 
-  const [status, setStatus] = useState(null); // null, success, serverError, clientError, loginError, loading
+  const [status, setStatus] = useState(null);
 
   const handleSubmit = (e) => {
     e.preventDefault();
@@ -30,9 +31,7 @@ const SignIn = () => {
     setStatus('loading');
     fetch(`${AUTH_URL}/login`, options)
       .then((res) => {
-        console.log('Response:', res);
         if (res.status === 201) {
-          // localStorage.setItem('email', JSON.stringify(email));
 
           setStatus('success');
           dispatch(logIn({ email }));
@@ -52,7 +51,7 @@ const SignIn = () => {
 
   return (
     <Container className="d-flex flex-column align-items-center">
-      <h1>Sign In Here</h1>
+      <h1 className={styles.title}>Sign In Here</h1>
 
       {status === 'loading' && (
         <Spinner
@@ -104,7 +103,7 @@ const SignIn = () => {
           <Form.Label>Password</Form.Label>
           <Form.Control type="password" placeholder="Enter password" />
         </Form.Group>
-        <Button variant="primary" type="submit">
+        <Button variant="outline-dark" type="submit">
           Sign In
         </Button>
       </Form>

@@ -20,7 +20,6 @@ const MainMenu = () => {
   const [isOpen, setIsOpen] = useState(false);
 
   const user = useSelector((state) => state.user);
-  console.log(user);
 
 
   const toggle = () => {
@@ -48,7 +47,7 @@ const MainMenu = () => {
               <NavLink href="/about-us">About Us</NavLink>
             </NavItem>
 
-            {!user ? (
+            {!user || user===null ? (
               <>
                 <NavItem className="d-block d-xl-block">
                   <NavLink href="/sign-up">Sign Up</NavLink>

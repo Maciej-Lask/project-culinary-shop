@@ -19,6 +19,6 @@ export class CreateProductDTO {
   image: string;
 
   @IsArray()
-  @ValidateNested({ each: true }) // Add this line to validate nested objects
+  @ValidateNested({ each: true }) 
   gallery: CreateProductImageDTO[];
 }

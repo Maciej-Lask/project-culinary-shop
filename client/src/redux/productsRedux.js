@@ -36,7 +36,6 @@ export const fetchProducts = () => {
   return async (dispatch) => {
     try {
       const response = await fetch(`${API_URL}/products`);
-      console.log(response);
       const data = await response.json();
       dispatch(updateProducts(data));
     } catch (error) {

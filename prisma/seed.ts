@@ -163,37 +163,7 @@ function getProducts() {
 
 function getUsers() {
   return [
-    // {
-    //   id: 'test',
-    //   email: 'test@example.com',
-    //   role: Role.USER,
-    //   password: {
-    //     create: {
-    //       hashedPassword:
-    //         '$2a$10$plZkxTiqsbS.rcwbCo8jNO/Fg1u0VsD9yucUiPE/KYppflR301dmq',
-    //     },
-    //   },
-    // },
-    // {
-    //   email: 'user1@example.com',
-    //   role: Role.USER,
-    //   password: {
-    //     create: {
-    //       hashedPassword:
-    //         '$2a$10$plZkxTiqsbS.rcwbCo8jNO/Fg1u0VsD9yucUiPE/KYppflR301dmq',
-    //     },
-    //   },
-    // },
-    // {
-    //   email: 'user2@example.com',
-    //   role: Role.ADMIN,
-    //   password: {
-    //     create: {
-    //       hashedPassword:
-    //         '$2a$10$beaXjC2PuvXK7NboaamcVeQmvlrkHmdbOAKjKTTsH5UVygLubFvLq',
-    //     },
-    //   },
-    // },
+  
   ];
 }
 

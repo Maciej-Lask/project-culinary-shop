@@ -20,7 +20,6 @@ import ProductCarousel from '../../features/ProductsCarousel/ProductsCarousel';
 const Product = () => {
   const { id } = useParams();
   const product = useSelector((state) => getProductById(state, id));
-  console.log(product);
 
   const [productCount, setProductCount] = useState(1);
   const [isModalOpen, setIsModalOpen] = useState(false);

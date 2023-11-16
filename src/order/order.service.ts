@@ -36,12 +36,10 @@ export class OrderService {
       return await this.prismaService.order.create({
         data: {
           ...orderData,
-          // user: { connect: { id: userId } },
           userId: userId,
           cartProducts: {
             create: cartProducts.map((cartProduct) => ({
               ...cartProduct,
-              // product: { connect: { productId: cartProduct.productId } },
               productId: cartProduct.productId,
             })),
           },

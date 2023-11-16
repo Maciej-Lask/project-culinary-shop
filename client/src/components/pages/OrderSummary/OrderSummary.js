@@ -13,6 +13,7 @@ import OrderItem from '../../common/OrderItem/OrderItem';
 import { Link } from 'react-router-dom';
 import { useState, useEffect } from 'react';
 import { API_URL } from '../../../config';
+import styles from './OrderSummary.module.scss';
 
 
 const OrderSummary = () => { 
@@ -24,7 +25,7 @@ const OrderSummary = () => {
 
   const userData = JSON.parse(localStorage.getItem('user'));
   const [userId, setUserId] = useState(userData?.id);
-  const [email, setEmail] = useState('');
+  const [email, setEmail] = useState(userData?.email);
   const [address, setAddress] = useState('');
   const [paymentMethod, setPaymentMethod] = useState('Credit Card');
   
@@ -36,8 +37,6 @@ const OrderSummary = () => {
       products: [],
     };
     if (!userId || !userData) {
-      console.log(userData);
-
       setStatus('loginError');
     }
     setCart(storedCart);
@@ -85,6 +84,8 @@ const OrderSummary = () => {
           setCart({ products: [] });
         } else if (res.status === 400) {
           setStatus('clientError');
+        } else if(res.status === 401){
+          setStatus('loginError');
         } else {
           setStatus('serverError');
         }
@@ -100,20 +101,21 @@ const OrderSummary = () => {
   };
 
   return (
-    <Container>
+    <Container className={styles.orderSummaryPage}>
       <h1>Order Summary</h1>
 
-      {status === 'loginError' && status !== null && ( <Modal show={isModalOpen} onHide={closeModal}>
-            <Modal.Header closeButton>
-              <Modal.Title>You need to be logged in to order</Modal.Title>
-            </Modal.Header>
-            <Modal.Footer>
-              <Link to="/sign-in" onClick={closeModal}>
-                <Button variant="outline-warning">Sign In</Button>
-              </Link>
-            </Modal.Footer>
-          </Modal>
-        )}
+      {status === 'loginError' && status !== null && (
+        <Modal show={isModalOpen} onHide={closeModal}>
+          <Modal.Header closeButton>
+            <Modal.Title>You need to be logged in to order</Modal.Title>
+          </Modal.Header>
+          <Modal.Footer>
+            <Link to="/sign-in" onClick={closeModal}>
+              <Button variant="outline-warning">Sign In</Button>
+            </Link>
+          </Modal.Footer>
+        </Modal>
+      )}
 
       {status === 'clientError' && (
         <Alert variant="danger">
@@ -124,6 +126,11 @@ const OrderSummary = () => {
       {status === 'serverError' && (
         <Alert variant="danger">
           Something went wrong. Please try again later.
+        </Alert>
+      )}
+      {status === 'loginError' && (
+        <Alert variant="warning">
+          You need to be logged in to order.
         </Alert>
       )}
       {status === 'success' && (
