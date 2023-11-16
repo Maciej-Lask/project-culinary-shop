@@ -1,4 +1,5 @@
-import { IsNotEmpty, IsString, IsNumber } from 'class-validator';
+import { IsNotEmpty, IsString, IsNumber, IsArray, ValidateNested } from 'class-validator';
+import { CreateProductImageDTO } from './create-product-image.dto';
 
 export class CreateProductDTO {
   @IsNotEmpty()
@@ -16,4 +17,8 @@ export class CreateProductDTO {
   @IsNotEmpty()
   @IsString()
   image: string;
+
+  @IsArray()
+  @ValidateNested({ each: true }) 
+  gallery: CreateProductImageDTO[];
 }

@@ -1,0 +1,17 @@
+@import '../../../styles/settings.scss';
+
+.orderSummaryPage{
+
+    @media (max-width: 480px) {
+      h1,
+      h2 {
+        font-size: $base-size * 2;
+      }
+    }
+    @media (max-width: 250px) {
+      h1,
+      h2 {
+        font-size: $base-size * 1.5;
+      }
+    }
+}

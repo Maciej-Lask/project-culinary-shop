@@ -1,7 +1,7 @@
 @import '../../../styles/settings.scss';
 
 .cartItem {
-  padding: 15px;
+  padding-bottom: 15px;
   margin-bottom: 15px;
   border-bottom: 1px solid $color-text-light;
 
@@ -66,5 +66,11 @@
     .imageRow{
       justify-content: center;
     }
+  }
+  @media screen and (max-width: 300px) {
+    .price{
+      width: 100%;
+    }
+    
   }
 }

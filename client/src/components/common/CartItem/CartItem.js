@@ -59,8 +59,8 @@ const CartItem = ({ product, updateCart, removeProduct }) => {
           )}
         </div>
         <div className={`col-12 col-md-6 row ${styles.pricesRow}`}>
-          <p className="col-6">Price per item: ${product.price}</p>
-          <p className="col-6">Total for this item: ${product.price * count}</p>
+          <p className={`col-6 ${styles.price}`}>Price per item: ${product.price}</p>
+          <p className={`col-6 ${styles.price}`}>Total for this item: ${product.price * count}</p>
         </div>
         <div className={`row ${styles.buttonsRow}`}>
           <Button

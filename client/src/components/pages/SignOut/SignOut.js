@@ -5,22 +5,20 @@ import { useNavigate } from 'react-router-dom';
 import { logOut } from '../../../redux/usersRedux';
 import { useDispatch } from 'react-redux';
 import { useEffect } from 'react';
+import styles from './SignOut.module.scss';
 const SignOut = () => {
   const navigate = useNavigate();
   const dispatch = useDispatch();
   useEffect(() => {
     const options = {
       method: 'DELETE',
-      headers: {
-        'Content-Type': 'application/json',
-        // credentials: 'include',
-      },
+      credentials: 'include',
     };
 
     fetch(`${AUTH_URL}/logout`, options).then(() => {
-      dispatch(logOut());
-      localStorage.setItem('user', JSON.stringify('unauthorized'));
+      localStorage.removeItem('user');
       localStorage.removeItem('cart');
+      dispatch(logOut());
       setTimeout(() => {
         navigate('/');
       }, 3000);
@@ -28,9 +26,9 @@ const SignOut = () => {
   }, [dispatch, navigate]);
   return (
     <Container className="d-flex flex-column align-items-center">
-      <h1>You have been signed out</h1>
+      <h1 className={styles.title}>You have been signed out</h1>
       <h5 className='mb-5'>You will be redirected to the homepage in 3 seconds</h5>
-      <Button variant="primary" onClick={() => navigate('/')}>Back to Home Now</Button>
+      <Button variant="outline-dark" onClick={() => navigate('/')}>Back to Home Now</Button>
     </Container>
   );
 };

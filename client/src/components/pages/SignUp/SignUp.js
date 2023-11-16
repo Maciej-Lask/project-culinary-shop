@@ -4,6 +4,7 @@ import { useNavigate } from "react-router-dom";
 import { useState } from 'react';
 
 import { AUTH_URL } from '../../../config';
+import styles from './SignUp.module.scss';
 
 const SignUp = () => {
   const navigate = useNavigate();
@@ -11,7 +12,7 @@ const SignUp = () => {
   const [password, setPassword] = useState('');
   const [passwordRepeat, setPasswordRepeat] = useState('');
 
-  const [status, setStatus] = useState(null); // null, success, serverError, clientError, loginError, loading
+  const [status, setStatus] = useState(null);
 
 const handleSubmit = (e) => {
   e.preventDefault();
@@ -40,7 +41,7 @@ const handleSubmit = (e) => {
       } else if (res.status === 400) {
         setStatus('clientError');
       } else if (res.status === 409) {
-        setStatus('loginError');
+        setStatus('emailError');
       } else {
         setStatus('serverError');
       }
@@ -53,7 +54,7 @@ const handleSubmit = (e) => {
 
   return (
     <Container className="d-flex flex-column align-items-center">
-      <h1>Sign Up Here</h1>
+      <h1 className={styles.title}>Sign Up Here</h1>
 
       {status === 'loading' && (
         <Spinner
@@ -89,7 +90,7 @@ const handleSubmit = (e) => {
         </Alert>
       )}
 
-      {status === 'loginError' && (
+      {status === 'emailError' && (
         <Alert variant="warning" className="rounded">
           <Alert.Heading style={{ color: 'white' }}>
             Email already in use!
@@ -127,7 +128,7 @@ const handleSubmit = (e) => {
           />
         </Form.Group>
         
-        <Button variant="primary" type="submit">
+        <Button variant="outline-dark" type="submit">
           Submit
         </Button>
       </Form>
