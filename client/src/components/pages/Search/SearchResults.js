@@ -3,6 +3,7 @@ import { Container, Row, Col, Spinner } from 'react-bootstrap';
 import { useParams } from 'react-router-dom';
 import { API_URL } from '../../../config';
 import ProductCard from '../../common/ProductCard/ProductCard';
+import styles from './SearchResults.module.scss';
 
 const Search = () => {
   const { searchPhrase } = useParams();
@@ -24,7 +25,7 @@ const Search = () => {
 
   return (
     <Container>
-      <h1>Search Results for: {searchPhrase}</h1>
+      <h1 className={styles.title}>Search Results for: {searchPhrase}</h1>
       {loading ? (
         <Spinner
           color="primary"

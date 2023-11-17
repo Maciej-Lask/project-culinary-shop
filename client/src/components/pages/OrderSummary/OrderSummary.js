@@ -24,7 +24,7 @@ const OrderSummary = () => {
   const [name, setName] = useState('');
 
   const userData = JSON.parse(localStorage.getItem('user'));
-  const [userId, setUserId] = useState(userData?.id);
+  const [userId, ] = useState(userData?.id);
   const [email, setEmail] = useState(userData?.email);
   const [address, setAddress] = useState('');
   const [paymentMethod, setPaymentMethod] = useState('Credit Card');
