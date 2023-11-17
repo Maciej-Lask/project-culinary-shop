@@ -1,5 +1,4 @@
 import { PrismaClient } from '@prisma/client';
-import { Role } from '@prisma/client';
 const db = new PrismaClient();
 
 function getProducts() {
@@ -161,11 +160,7 @@ function getProducts() {
   ];
 }
 
-function getUsers() {
-  return [
-  
-  ];
-}
+
 
 async function seed() {
   await db.product.deleteMany();
@@ -175,13 +170,6 @@ async function seed() {
     getProducts().map((product) => {
       return db.product.create({ data: product });
     })
-  );
-  await Promise.all(
-    getUsers().map((user) => {
-      return db.user.create({
-        data: user,
-      });
-    }),
   );
 }
 
