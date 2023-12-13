@@ -15,7 +15,7 @@ import Product from './components/pages/Product/Product';
 import Search from './components/pages/Search/SearchResults';
 
 import { fetchProducts } from './redux/productsRedux';
-import { logIn, logOut } from './redux/usersRedux';
+import { checkLoggedInUser } from './utils/checkLoggedInUser';
 
 import ContactPage from './components/pages/ContactUs/ContactUsPage';
 import AboutUsPage from './components/pages/AboutUs/AboutUsPage';
@@ -25,40 +25,14 @@ import Order from './components/pages/Order/Order';
 import MyOrders from './components/pages/MyOrders/MyOrders';
 import OrderSummary from './components/pages/OrderSummary/OrderSummary';
 
-import { AUTH_URL } from './config';
-import { useSelector } from 'react-redux';
 
 const App = () => {
   const dispatch = useDispatch();
-  const user = useSelector((state) => state.user);
 
   useEffect(() => {
     dispatch(fetchProducts());
-    const userData = JSON.parse(localStorage.getItem('user'));
-
-    if (userData && userData.email !== undefined && userData.email !== null) {
-      dispatch(logIn(userData.email));
-    } else if (user !== null) {
-      fetch(`${AUTH_URL}/user`, {
-        method: 'GET',
-        credentials: 'include',
-      })
-        .then((res) => res.json())
-        .then((userData) => {
-          if (
-            userData &&
-            userData.email !== undefined &&
-            userData.email !== null
-          ) {
-            dispatch(logIn(userData.email));
-            localStorage.setItem('user', JSON.stringify(userData));
-          }
-        })
-        .catch((error) => {
-          console.error('Error while fetching user data:', error);
-        });
-    }
-  }, [user, dispatch]);
+    checkLoggedInUser(dispatch);
+  }, [dispatch]);
 
   return (
     <MainLayout>

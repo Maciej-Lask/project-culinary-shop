@@ -4,6 +4,7 @@ import styles from './AboutUs.module.scss';
 
 const AboutUsPage = () => (
   <div className={styles.aboutUsPage}>
+    
     <Container>
       <h1 className="text-center">About Us</h1>
       <div className="mission">
